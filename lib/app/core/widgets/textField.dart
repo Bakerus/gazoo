@@ -16,8 +16,6 @@ class TextFieldGen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      // width: 312,
-      // height: 46,
       child: Material(
         shadowColor: const Color.fromRGBO(0, 0, 0, 0.20),
         elevation: 2.0,

@@ -30,6 +30,9 @@ flutter:
   assets:
     - assets/images/gazoo_logo.png
     - assets/images/userPosition.png
+    - assets/images/bouteilleGaz.png
+    - assets/images/listeDepots.png
+    - assets/images/depotGaz.png
   fonts:
     - family: Poppins
       fonts:

@@ -45,4 +45,9 @@ class GlobalAppController extends GetxController {
       }
     }
   }
+
+
+
+
+
 }
