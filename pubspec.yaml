@@ -9,6 +9,8 @@ dependencies:
   cupertino_icons: ^1.0.2
   get: 4.6.5
   location: ^4.2.0
+  http: ^0.13.4
+  get_storage: ^2.1.1
   flutter: 
     sdk: flutter
   google_maps_flutter: ^2.2.6

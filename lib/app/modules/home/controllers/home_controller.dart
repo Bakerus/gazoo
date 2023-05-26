@@ -12,8 +12,7 @@ class HomeController extends GetxController {
   final cameraPosition = const CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.4746)
       .obs;
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
       BottomSheetGen bottomSheetGen = const BottomSheetGen();
   final stateCurrentLocation = false.obs;
   LocationData? locationData;
@@ -38,7 +37,6 @@ class HomeController extends GetxController {
 
   Future<void> getPosition() async {
     print("iniinitialPosition");
-
     Location location = Location();
     bool _serviceEnabled;
     PermissionStatus _permissionGranted;
@@ -63,20 +61,15 @@ class HomeController extends GetxController {
       (currentLocation) {
         if (currentLocation != null) {
           stateCurrentLocation.value = true;
-          print(stateCurrentLocation.value);
-          print(
-              "latitude:${currentLocation.latitude}, longitude:${currentLocation.longitude}");
+          // print(stateCurrentLocation.value);
+          // print("latitude:${currentLocation.latitude}, longitude:${currentLocation.longitude}");
           // latitude.value = currentLocation.latitude!;
           // longitude.value = currentLocation.longitude!;
-          initialCameraPosition(
-              latitude: currentLocation.latitude!,
-              longitude: currentLocation.longitude!);
-          customIcon(
-              latitude: currentLocation.latitude!,
-              longitude: currentLocation.longitude!);
+          initialCameraPosition(latitude: currentLocation.latitude!,longitude: currentLocation.longitude!);
+          customIcon(latitude: currentLocation.latitude!,longitude: currentLocation.longitude!);
         } else {
           stateCurrentLocation.value = false;
-          print(stateCurrentLocation.value);
+          // print(stateCurrentLocation.value);
         }
       },
     );
@@ -90,22 +83,16 @@ class HomeController extends GetxController {
 
   void initialCameraPosition(
       {required double latitude, required double longitude}) {
-    print("iniinitialCameraPosition");
-    print(latitude);
-    print(longitude);
-    cameraPosition.value = CameraPosition(
-      target: LatLng(latitude, longitude),
-      zoom: 15.5,
-    );
-    print(cameraPosition.value);
-
+     print("iniinitialCameraPosition");
+    // print(latitude);
+    // print(longitude);
+    cameraPosition.value = CameraPosition(target: LatLng(latitude, longitude),zoom: 15.5,);
+    // print(cameraPosition.value);
     _goToTheCamperaPosition(cameraPosition: cameraPosition.value);
   }
 
-  Future<void> _goToTheCamperaPosition(
-      {required CameraPosition cameraPosition}) async {
-    print("yo");
-    print(cameraPosition);
+  Future<void> _goToTheCamperaPosition({required CameraPosition cameraPosition}) async{
+    // print(cameraPosition);
     final GoogleMapController controller = await _controller.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }

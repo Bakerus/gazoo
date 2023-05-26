@@ -39,7 +39,7 @@ class BottomSheetGen extends StatelessWidget {
 
   Future bottomsheetGenerator() {
     return Get.bottomSheet(
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(15.0)),
+      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20) )),
       barrierColor: const Color.fromRGBO(0, 0, 0, 0.58),
       backgroundColor: Colors.white,
       Column(
