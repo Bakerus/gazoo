@@ -35,6 +35,7 @@ flutter:
     - assets/images/bouteilleGaz.png
     - assets/images/listeDepots.png
     - assets/images/depotGaz.png
+    - assets/images/depotGazMap.png
   fonts:
     - family: Poppins
       fonts:

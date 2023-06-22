@@ -37,7 +37,7 @@ class BottomSheetGen extends StatelessWidget {
     );
   }
 
-  Future bottomsheetGenerator() {
+  Future bottomsheetGenerator({required String name, required String number, required String place, required String openDate, required String openHours }) {
     return Get.bottomSheet(
       shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20) )),
       barrierColor: const Color.fromRGBO(0, 0, 0, 0.58),
@@ -61,7 +61,7 @@ class BottomSheetGen extends StatelessWidget {
               Padding(
                 padding: const EdgeInsets.symmetric(vertical: 5.0),
                 child: Text(
-                  "ETS GAZ_MAN",
+                  name,
                   style: AppTheme.ligthTheme.textTheme.headline3,
                 ),
               ),
@@ -73,7 +73,7 @@ class BottomSheetGen extends StatelessWidget {
                   children: [
                     const Icon(Icons.whatsapp_outlined, color: AppColors.brown),
                     Text(
-                      "656704510",
+                      number,
                       style: AppTheme.ligthTheme.textTheme.bodyText2,
                     )
                   ],
@@ -90,7 +90,7 @@ class BottomSheetGen extends StatelessWidget {
                           Icons.location_on_outlined,
                           color: AppColors.brown,
                         ),
-                        Text("Afamba",
+                        Text(place,
                             style: AppTheme.ligthTheme.textTheme.bodyText2)
                       ],
                     ),
@@ -100,7 +100,7 @@ class BottomSheetGen extends StatelessWidget {
                           Icons.calendar_today,
                           color: AppColors.brown,
                         ),
-                        Text("Lun-Dim",
+                        Text(openDate,
                             style: AppTheme.ligthTheme.textTheme.bodyText2)
                       ],
                     ),
@@ -111,7 +111,7 @@ class BottomSheetGen extends StatelessWidget {
                           color: AppColors.brown,
                         ),
                         Text(
-                          "7h-8h",
+                          openHours,
                           style: AppTheme.ligthTheme.textTheme.bodyText2,
                         )
                       ],

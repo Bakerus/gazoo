@@ -1,5 +1,4 @@
 import 'dart:async';
-
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/images.dart';
 import 'package:gazoo/app/core/design/theme.dart';
@@ -7,17 +6,15 @@ import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import '../../../core/design/colors.dart';
-import '../../../core/utils/controller.dart';
 import '../controllers/home_controller.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
 
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+
   @override
   Widget build(BuildContext context) {
-    final globalAppControl = Get.put(GlobalAppController());
     final controller = Get.put(HomeController());
     GetStorage getstorage = GetStorage();
 
@@ -34,21 +31,11 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       CircleAvatar(
                         backgroundColor: AppColors.brown,
-                        child: Text(
-                          "G",
-                          style: AppTheme.ligthTheme.textTheme.headline4,
-                        ),
+                        child: Text("G",style: AppTheme.ligthTheme.textTheme.headline4,),
                       ),
-                      Text(
-                        getstorage.read("name"),
-                        // "latitude:${controller.latitude.value}, longitude:${controller.longitude.value}",
-                        // globalAppControl.firstNameController.text,
-                        style: AppTheme.ligthTheme.textTheme.headline3,
-                      ),
-                    ],
-                  ),
-                ],
-              ),
+                      Text(getstorage.read("name"), style: AppTheme.ligthTheme.textTheme.headline3,),
+                    ],),
+                ],),
             ),
             Stack(
               alignment: Alignment.bottomCenter,
@@ -62,20 +49,18 @@ class HomeView extends GetView<HomeController> {
                         topRight: Radius.circular(30),
                       ),
                       child: Obx(
-                        () => controller.stateCurrentLocation.value == false
-                            ? const Center(
-                                child: CircularProgressIndicator(
-                                    color: AppColors.brown, strokeWidth: 5.0))
-                            : GoogleMap(
+                        () => ( (controller.stateCurrentLocation.value == true) && (controller.depotGazLocation.value == true))
+                            ?  GoogleMap(
                                 zoomControlsEnabled: false,
                                 mapType: MapType.normal,
-                                markers: {controller.userPosition.value},
+                                markers: controller.globalMarker,
                                 initialCameraPosition:
                                     controller.cameraPosition.value,
                                 onMapCreated: (GoogleMapController controller) {
                                   _controller.complete(controller);
                                 },
-                              ),
+                              )
+                            : const Center( child: CircularProgressIndicator(color: AppColors.brown, strokeWidth: 5.0),),
                       )),
                 ),
                 Container(
@@ -144,15 +129,6 @@ class HomeView extends GetView<HomeController> {
           ],
         ),
       ),
-      // floatingActionButton: FloatingActionButton.extended(
-      //   onPressed: () => controller.getPosition(),
-      //   label: const Text('To the lake!'),
-      //   icon: const Icon(Icons.directions_boat),
-      // ),
     );
   }
-  // Future<void> _goToTheLake() async {
-  //   final GoogleMapController controller = await _controller.future;
-  //   controller.animateCamera(CameraUpdate.newCameraPosition(_kLake));
-  // }
 }

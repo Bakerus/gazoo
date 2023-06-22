@@ -9,10 +9,8 @@ void main() async{
   GetStorage getstorage = GetStorage();
   String initialRoute() {
     if (getstorage.read("name") != null) {
-      print(getstorage.read("name"));
       return Routes.HOME;
     } else {
-      print(getstorage.read("name"));
       return Routes.SIGN_UP;
     }
   }

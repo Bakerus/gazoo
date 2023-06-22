@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:gazoo/app/data/models/clients.dart';
-import 'package:gazoo/app/data/provider/clientsProvider.dart';
+import 'package:gazoo/app/data/provider/clients_provider.dart';
 import 'package:gazoo/app/modules/home/views/home_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
-import '../../routes/app_pages.dart';
 import '../widgets/snackbar.dart';
 
 class GlobalAppController extends GetxController {
@@ -23,8 +22,6 @@ class GlobalAppController extends GetxController {
   }
 
   void texFieldVerification({required GlobalAppController control}) {
-    print('hello world');
-
     if (control.firstNameController.text.isEmpty ||
         control.secondNameController.text.isEmpty ||
         control.addressController.text.isEmpty ||
@@ -49,14 +46,12 @@ class GlobalAppController extends GetxController {
             title: "Erreur",
             message: "L'addresse que vous avez entrez n'est pas valide");
       } else {
-        print("arrivé1");
         createAccountController();
       }
     }
   }
 
   Future createAccountController() async{
-    print('arrivé');
     Clients clients = await clientsProvider.createAccount(
         name: firstNameController.text,
         surname: secondNameController.text,
@@ -64,10 +59,7 @@ class GlobalAppController extends GetxController {
         phone: numberController.text);
 
     getStorage.write("name", firstNameController.text);
-    print(getStorage.read("name"));
-
     Get.off(HomeView());
-    // Get.offAndToNamed(Routes.HOME);
   }
 
 }

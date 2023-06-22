@@ -1,12 +1,9 @@
-
 import 'dart:convert';
-
 import 'package:gazoo/app/data/models/clients.dart';
 import 'package:http/http.dart' as http;
 
 String urlBase = "http://gazoo.alwaysdata.net";
 class ClientsProvider{
-
 
 Future<Clients> createAccount({required String name, required String surname, required String address, required String phone}) async{
   final response = await http.post(
@@ -23,13 +20,9 @@ Future<Clients> createAccount({required String name, required String surname, re
   );
 
   if(response.statusCode == 201 ){
-    print(response.body);
     return Clients.fromJson(jsonDecode(response.body));
   }else{
-    print(response.statusCode);
     throw Exception('Failed to create user Account');
   }
-
 }
-
 }
