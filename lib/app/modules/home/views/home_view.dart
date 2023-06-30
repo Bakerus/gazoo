@@ -7,11 +7,14 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import '../../../core/design/colors.dart';
 import '../controllers/home_controller.dart';
+import 'station_popup.dart';
+import 'marques_popup.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
 
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   @override
   Widget build(BuildContext context) {
@@ -31,11 +34,19 @@ class HomeView extends GetView<HomeController> {
                     children: [
                       CircleAvatar(
                         backgroundColor: AppColors.brown,
-                        child: Text("G",style: AppTheme.ligthTheme.textTheme.headline4,),
+                        child: Text(
+                          "G",
+                          style: AppTheme.ligthTheme.textTheme.headline4,
+                        ),
                       ),
-                      Text(getstorage.read("name"), style: AppTheme.ligthTheme.textTheme.headline3,),
-                    ],),
-                ],),
+                      Text(
+                        getstorage.read("name"),
+                        style: AppTheme.ligthTheme.textTheme.headline3,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
             ),
             Stack(
               alignment: Alignment.bottomCenter,
@@ -49,8 +60,10 @@ class HomeView extends GetView<HomeController> {
                         topRight: Radius.circular(30),
                       ),
                       child: Obx(
-                        () => ( (controller.stateCurrentLocation.value == true) && (controller.depotGazLocation.value == true))
-                            ?  GoogleMap(
+                        () => ((controller.stateCurrentLocation.value ==
+                                    true) &&
+                                (controller.depotGazLocation.value == true))
+                            ? GoogleMap(
                                 zoomControlsEnabled: false,
                                 mapType: MapType.normal,
                                 markers: controller.globalMarker,
@@ -60,7 +73,10 @@ class HomeView extends GetView<HomeController> {
                                   _controller.complete(controller);
                                 },
                               )
-                            : const Center( child: CircularProgressIndicator(color: AppColors.brown, strokeWidth: 5.0),),
+                            : const Center(
+                                child: CircularProgressIndicator(
+                                    color: AppColors.brown, strokeWidth: 5.0),
+                              ),
                       )),
                 ),
                 Container(
@@ -79,19 +95,29 @@ class HomeView extends GetView<HomeController> {
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Image.asset(
-                            AppImages.bouteilleGaz,
-                            width: 41.0,
-                            height: 41.0,
-                          ),
-                          Text(
-                            "tradex",
-                            style: AppTheme.ligthTheme.textTheme.subtitle2,
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return MarquesPopup();
+                            },
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Image.asset(
+                              AppImages.bouteilleGaz,
+                              width: 41.0,
+                              height: 41.0,
+                            ),
+                            Text(
+                              "tradex",
+                              style: AppTheme.ligthTheme.textTheme.subtitle2,
+                            )
+                          ],
+                        ),
                       ),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -107,19 +133,30 @@ class HomeView extends GetView<HomeController> {
                           )
                         ],
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Image.asset(
-                            AppImages.listeDepots,
-                            width: 41.0,
-                            height: 41.0,
-                          ),
-                          Text(
-                            "station tradex",
-                            style: AppTheme.ligthTheme.textTheme.subtitle2,
-                          )
-                        ],
+                      GestureDetector(
+                        onTap: () {
+                          showDialog(
+                            context: context,
+                            builder: (BuildContext context) {
+                              return StationPopup(
+                                  vendorsLists: controller.vendorsLists);
+                            },
+                          );
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Image.asset(
+                              AppImages.listeDepots,
+                              width: 41.0,
+                              height: 41.0,
+                            ),
+                            Text(
+                              "station tradex",
+                              style: AppTheme.ligthTheme.textTheme.subtitle2,
+                            )
+                          ],
+                        ),
                       ),
                     ],
                   ),
