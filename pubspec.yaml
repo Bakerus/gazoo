@@ -5,6 +5,7 @@ description: A new Flutter project.
 environment: 
   sdk: '>=2.18.2 <3.0.0'
 
+
 dependencies: 
   cupertino_icons: ^1.0.2
   get: 4.6.5
@@ -14,6 +15,8 @@ dependencies:
   flutter: 
     sdk: flutter
   google_maps_flutter: ^2.2.6
+  auto_size_text: ^3.0.0
+  
 
 dev_dependencies: 
   flutter_lints: ^2.0.0
@@ -36,6 +39,8 @@ flutter:
     - assets/images/listeDepots.png
     - assets/images/depotGaz.png
     - assets/images/depotGazMap.png
+    - assets/images/whatsapp.png
+    - assets/images/prix.png
   fonts:
     - family: Poppins
       fonts:

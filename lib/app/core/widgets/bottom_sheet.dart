@@ -37,9 +37,16 @@ class BottomSheetGen extends StatelessWidget {
     );
   }
 
-  Future bottomsheetGenerator({required String name, required String number, required String place, required String openDate, required String openHours }) {
+  Future bottomsheetGenerator(
+      {required String name,
+      required String number,
+      required String place,
+      required String openDate,
+      required String openHours}) {
     return Get.bottomSheet(
-      shape: const RoundedRectangleBorder(borderRadius: BorderRadius.only(topLeft: Radius.circular(20), topRight: Radius.circular(20) )),
+      shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(20), topRight: Radius.circular(20))),
       barrierColor: const Color.fromRGBO(0, 0, 0, 0.58),
       backgroundColor: Colors.white,
       Column(
@@ -48,14 +55,22 @@ class BottomSheetGen extends StatelessWidget {
             children: [
               Container(
                 decoration: const BoxDecoration(
-                  color: Colors.white,
-                  shape: BoxShape.circle,
-                  boxShadow: [BoxShadow(blurRadius: 5, color: Color.fromRGBO(0, 0, 0, 0.16), spreadRadius: 2)]
-                ),
+                    color: Colors.white,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                          blurRadius: 5,
+                          color: Color.fromRGBO(0, 0, 0, 0.16),
+                          spreadRadius: 2)
+                    ]),
                 child: CircleAvatar(
                   radius: 28.0,
                   backgroundColor: Colors.white,
-                  child: Image.asset(AppImages.depotGaz, width: 34, height: 34,),
+                  child: Image.asset(
+                    AppImages.depotGaz,
+                    width: 34,
+                    height: 34,
+                  ),
                 ),
               ),
               Padding(
@@ -71,7 +86,8 @@ class BottomSheetGen extends StatelessWidget {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
-                    const Icon(Icons.whatsapp_outlined, color: AppColors.brown),
+                    const Icon(Icons.phone_android_outlined,
+                        color: AppColors.brown),
                     Text(
                       number,
                       style: AppTheme.ligthTheme.textTheme.bodyText2,
