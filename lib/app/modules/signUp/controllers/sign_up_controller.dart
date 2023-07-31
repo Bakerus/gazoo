@@ -16,5 +16,4 @@ class SignUpController extends GetxController {
   // void onClose() {
   //   super.onClose();
   // }
-
 }

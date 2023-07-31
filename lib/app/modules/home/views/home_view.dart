@@ -7,17 +7,21 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import '../../../core/design/colors.dart';
 import '../controllers/home_controller.dart';
+import 'package:flutter/services.dart';
 import 'station_popup.dart';
 import 'marques_popup.dart';
 
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
 
-  final Completer<GoogleMapController> _controller =
-      Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
 
   @override
   Widget build(BuildContext context) {
+    SystemChrome.setPreferredOrientations([
+      DeviceOrientation.portraitUp,
+      DeviceOrientation.portraitDown
+    ]);
     final controller = Get.put(HomeController());
     GetStorage getstorage = GetStorage();
 

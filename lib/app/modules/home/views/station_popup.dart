@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:gazoo/app/core/design/images.dart';
 import 'package:gazoo/app/data/models/vendors.dart';
 
 import 'package:gazoo/app/core/design/colors.dart';
@@ -7,7 +6,7 @@ import 'package:gazoo/app/core/design/colors.dart';
 class StationPopup extends StatefulWidget {
   final List<Vendors> vendorsLists;
 
-  StationPopup({required this.vendorsLists});
+  StationPopup({super.key, required this.vendorsLists});
 
   @override
   _StationPopupState createState() => _StationPopupState();

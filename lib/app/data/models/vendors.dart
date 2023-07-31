@@ -1,3 +1,5 @@
+import 'package:gazoo/app/data/models/timetables.dart';
+
 import 'localisation.dart';
 class Vendors {
   int id = 0;
@@ -5,10 +7,10 @@ class Vendors {
   String surname = "";
   String address = "";
   String phone = "";
-  String timetable = "";
+  TimetablesList? timeTables;
   Localisation? localisation;
 
-Vendors({required this.id ,required this.name, required this.surname, required this.address, required this.phone, required this.timetable, required this.localisation});
+Vendors({required this.id ,required this.name, required this.surname, required this.address, required this.phone, required this.timeTables, required this.localisation});
 
 Vendors.fromJson(Map<String, dynamic> json) {
   id = json['id'];
@@ -16,7 +18,7 @@ Vendors.fromJson(Map<String, dynamic> json) {
   surname = json['surname'];
   address = json['address'];
   phone = json['phone'];
-  timetable = json['timetable'];
+  timeTables = json['timeTables'] !=null ? TimetablesList.fromJson(json['timeTables']) : null ;
   localisation = json['localisation'] != null ? Localisation.fromJson(json['localisation']) : null;
 }
 
@@ -27,7 +29,7 @@ Map<String, dynamic> toJson(){
  data['surname'] = surname;
  data['address'] = address;
  data['phone'] = phone;
- data['timetable'] = timetable;
+ data['timetable'] = timeTables;
  data['localisation'] = localisation;
  return data;
 }

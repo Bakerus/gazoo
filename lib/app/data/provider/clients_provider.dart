@@ -21,8 +21,10 @@ Future<Clients> createAccount({required String name, required String surname, re
 
   if(response.statusCode == 201 ){
     return Clients.fromJson(jsonDecode(response.body));
-  }else{
+}else{
     throw Exception('Failed to create user Account');
   }
+
 }
+
 }

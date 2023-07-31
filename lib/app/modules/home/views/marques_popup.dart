@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/images.dart';
 
 class MarquesPopup extends StatefulWidget {
+  const MarquesPopup({super.key});
+
   @override
   _MarquesPopupState createState() => _MarquesPopupState();
 }
@@ -57,7 +59,7 @@ class _MarquesPopupState extends State<MarquesPopup> {
                 itemExtent: 40,
                 diameterRatio: 1.5,
                 offAxisFraction: -0.05,
-                physics: FixedExtentScrollPhysics(),
+                physics: const FixedExtentScrollPhysics(),
                 childDelegate: ListWheelChildBuilderDelegate(
                   builder: (BuildContext context, int index) {
                     final isSelected = selectedIndex == index;

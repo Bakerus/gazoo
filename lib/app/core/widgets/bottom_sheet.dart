@@ -95,45 +95,42 @@ class BottomSheetGen extends StatelessWidget {
                   ],
                 ),
               ),
-              Padding(
-                padding: const EdgeInsets.only(right: 8),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
-                  children: [
-                    Column(
-                      children: [
-                        const Icon(
-                          Icons.location_on_outlined,
-                          color: AppColors.brown,
-                        ),
-                        Text(place,
-                            style: AppTheme.ligthTheme.textTheme.bodyText2)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Icon(
-                          Icons.calendar_today,
-                          color: AppColors.brown,
-                        ),
-                        Text(openDate,
-                            style: AppTheme.ligthTheme.textTheme.bodyText2)
-                      ],
-                    ),
-                    Column(
-                      children: [
-                        const Icon(
-                          Icons.timelapse_outlined,
-                          color: AppColors.brown,
-                        ),
-                        Text(
-                          openHours,
-                          style: AppTheme.ligthTheme.textTheme.bodyText2,
-                        )
-                      ],
-                    ),
-                  ],
-                ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Column(
+                    children: [
+                      const Icon(
+                        Icons.location_on_outlined,
+                        color: AppColors.brown,
+                      ),
+                      Text(place,
+                          style: AppTheme.ligthTheme.textTheme.bodyText2)
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Icon(
+                        Icons.calendar_today,
+                        color: AppColors.brown,
+                      ),
+                      Text(openDate,
+                          style: AppTheme.ligthTheme.textTheme.bodyText2)
+                    ],
+                  ),
+                  Column(
+                    children: [
+                      const Icon(
+                        Icons.timelapse_outlined,
+                        color: AppColors.brown,
+                      ),
+                      Text(
+                        openHours,
+                        style: AppTheme.ligthTheme.textTheme.bodyText2,
+                      )
+                    ],
+                  ),
+                ],
               ),
             ],
           )
