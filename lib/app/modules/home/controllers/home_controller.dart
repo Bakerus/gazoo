@@ -1,12 +1,17 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/widgets/bottom_sheet.dart';
+import 'package:gazoo/app/data/models/bottle_lot.dart';
 import 'package:gazoo/app/data/models/vendors.dart';
 import 'package:gazoo/app/data/provider/vendors_provider.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:location/location.dart';
 import '../../../core/design/images.dart';
+
+//  getPosition(): Cette fonction permet recuperer la position de l'utilisateur et l'affiche à l'ecran sur la map
+// depotGazDisplaying(): Cette fonction permet recuperer la position des vendeurs de gaz et l'affiche à l'ecran sur la map
+// Custom(): Cette fonction permet de mettre des marques(pour l'utilisateur ou les vendeurs) sur la map
 
 class HomeController extends GetxController {
   var userPosition = RxSet<Marker>();
@@ -17,40 +22,40 @@ class HomeController extends GetxController {
       .obs;
   final Completer<GoogleMapController> _controller =
       Completer<GoogleMapController>();
-  BottomSheetGen bottomSheetGen = const BottomSheetGen();
   final stateCurrentLocation = false.obs;
   final depotGazLocation = false.obs;
+  final idVendeur = 0.obs;
+  final latitude = 0.0.obs;
+  final longitude = 0.0.obs;
   LocationData? locationData;
   VendorsProvider vendorsProvider = VendorsProvider();
   List<Vendors> vendorsLists = <Vendors>[].obs;
+  final bottlesList = RxList<BottleLot>();
 
   @override
   void onInit() async {
     super.onInit();
-    getPosition();
+    getPosition(); // Cette fonction permet recuperer la position de l'utilisateur et l'affiche à l'ecran sur la map
     vendorsLists = await vendorsProvider.getAllvendors();
-    depotGazDisplaying();
+    depotGazDisplaying(); // Cette fonction permet recuperer la position des vendeurs de gaz et l'affiche à l'ecran sur la map
   }
 
   Future<void> getPosition() async {
-    print("get position");
     Location location = Location();
-    bool _serviceEnabled;
-    PermissionStatus _permissionGranted;
-    LocationData _locationData;
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
 
-    _serviceEnabled = await location.serviceEnabled();
-    if (!_serviceEnabled) {
-      _serviceEnabled = await location.requestService();
-      if (!_serviceEnabled) {
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
         return;
       }
     }
-
-    _permissionGranted = await location.hasPermission();
-    if (_permissionGranted == PermissionStatus.denied) {
-      _permissionGranted = await location.requestPermission();
-      if (_permissionGranted != PermissionStatus.granted) {
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
         return;
       }
     }
@@ -58,17 +63,20 @@ class HomeController extends GetxController {
       (currentLocation) {
         if (currentLocation != null) {
           stateCurrentLocation.value = true;
+          latitude.value = currentLocation.latitude!;
+          longitude.value = currentLocation.longitude!;
           initialCameraPosition(
               latitude: currentLocation.latitude!,
-              longitude: currentLocation.longitude!);
-              
+              longitude: currentLocation
+                  .longitude!); // Cette fonction permet de mettre la camera sur la position initial ou se trouve l'utilisateur
+
           customIcon(
               statut: true,
               width: 20,
               height: 20,
               assetName: "assets/images/userPosition.png",
               marker: globalMarker,
-              markerId: 'userMarker',
+              markerId: 0,
               latitude: currentLocation.latitude!,
               longitude: currentLocation.longitude!,
               name: 'BAK',
@@ -85,8 +93,7 @@ class HomeController extends GetxController {
 
   void initialCameraPosition(
       {required double latitude, required double longitude}) {
-    cameraPosition.value =
-        CameraPosition(target: LatLng(latitude, longitude), zoom: 15.5);
+    cameraPosition.value = CameraPosition(target: LatLng(latitude, longitude), zoom: 15.5);
     _goToTheCamperaPosition(cameraPosition: cameraPosition.value);
   }
 
@@ -97,13 +104,12 @@ class HomeController extends GetxController {
   }
 
   void customIcon(
-      {
-      required bool statut, 
+      {required bool statut,
       required double width,
       required double height,
       required String assetName,
       required RxSet<Marker> marker,
-      required String markerId,
+      required int markerId,
       required double latitude,
       required double longitude,
       required String name,
@@ -117,19 +123,27 @@ class HomeController extends GetxController {
             assetName)
         .then((icon) {
       marker.add(Marker(
-        markerId: MarkerId(markerId),
+        markerId: MarkerId(markerId.toString()),
         infoWindow: InfoWindow.noText,
         position: LatLng(latitude, longitude),
         icon: icon,
-        onTap: () {
+        onTap: () async {
           if (statut == false) {
-            bottomSheetGen.bottomsheetGenerator(
-              name: name,
-              number: number,
-              place: place,
-              openDate: openDate,
-              openHours: openHours,
-            );
+            idVendeur.value = markerId;
+            bottlesList.value =
+                await vendorsProvider.getBottleLot(id: markerId);
+
+            Get.bottomSheet(
+                BottomSheetGen(
+                  name: name,
+                  number: number,
+                  place: place,
+                  openDate: openDate,
+                  openHours: openHours,
+                ),
+                backgroundColor: Colors.transparent,
+                isScrollControlled: true,
+                barrierColor: const Color.fromRGBO(0, 0, 0, 0.58));
           }
         },
       ));
@@ -137,11 +151,8 @@ class HomeController extends GetxController {
   }
 
   depotGazDisplaying() {
-  
     vendorsLists.forEach((element) {
-
       int timeTablelist = element.timeTables!.timeTables.length;
-
       String? getTimetables() {
         for (var i = 0; i <= timeTablelist; i++) {
           if (timeTablelist == 1) {
@@ -152,13 +163,14 @@ class HomeController extends GetxController {
         }
         return null;
       }
+
       customIcon(
-        statut: false,
+          statut: false,
           width: 34,
           height: 34,
           assetName: AppImages.depotGazMap,
           marker: globalMarker,
-          markerId: element.id.toString(),
+          markerId: element.id,
           latitude: element.localisation!.latitude,
           longitude: element.localisation!.longitude,
           name: element.name,

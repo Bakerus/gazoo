@@ -41,6 +41,7 @@ flutter:
     - assets/images/depotGazMap.png
     - assets/images/whatsapp.png
     - assets/images/prix.png
+    
   fonts:
     - family: Poppins
       fonts:

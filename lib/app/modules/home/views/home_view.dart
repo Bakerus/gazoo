@@ -14,14 +14,12 @@ import 'marques_popup.dart';
 class HomeView extends GetView<HomeController> {
   HomeView({Key? key}) : super(key: key);
 
-  final Completer<GoogleMapController> _controller = Completer<GoogleMapController>();
+  final Completer<GoogleMapController> _controller =
+      Completer<GoogleMapController>();
 
   @override
   Widget build(BuildContext context) {
-    SystemChrome.setPreferredOrientations([
-      DeviceOrientation.portraitUp,
-      DeviceOrientation.portraitDown
-    ]);
+    SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     final controller = Get.put(HomeController());
     GetStorage getstorage = GetStorage();
 
@@ -104,7 +102,7 @@ class HomeView extends GetView<HomeController> {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return MarquesPopup();
+                              return const MarquesPopup();
                             },
                           );
                         },
@@ -123,27 +121,32 @@ class HomeView extends GetView<HomeController> {
                           ],
                         ),
                       ),
-                      Column(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Image.asset(
-                            AppImages.userPosition,
-                            width: 41.0,
-                            height: 41.0,
-                          ),
-                          Text(
-                            "Localiser",
-                            style: AppTheme.ligthTheme.textTheme.subtitle2,
-                          )
-                        ],
+                      InkWell(
+                        onTap: () {
+                          controller.initialCameraPosition(latitude: controller.latitude.value, longitude: controller.longitude.value);
+                          print("yoooooo");
+                        },
+                        child: Column(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Image.asset(
+                              AppImages.userPosition,
+                              width: 41.0,
+                              height: 41.0,
+                            ),
+                            Text(
+                              "Localiser",
+                              style: AppTheme.ligthTheme.textTheme.subtitle2,
+                            )
+                          ],
+                        ),
                       ),
                       GestureDetector(
                         onTap: () {
                           showDialog(
                             context: context,
                             builder: (BuildContext context) {
-                              return StationPopup(
-                                  vendorsLists: controller.vendorsLists);
+                              return StationPopup(vendorsLists: controller.vendorsLists);
                             },
                           );
                         },

@@ -10,10 +10,10 @@ class AppTheme {
     ),
     textTheme: const TextTheme(
         headline6: TextStyle(
-            fontSize: 10,
+            fontSize: 8,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w300,
-            color: AppColors.white),
+            color: AppColors.lowblack),
         headline5: TextStyle(
             fontSize: 20,
             fontFamily: "Poppins",

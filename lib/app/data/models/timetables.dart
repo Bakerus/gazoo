@@ -1,4 +1,4 @@
-import 'package:gazoo/app/data/models/timeTables_2.dart';
+import 'package:gazoo/app/data/models/time_tables_2.dart';
 
 class TimetablesList {
 
