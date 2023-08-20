@@ -5,8 +5,8 @@ import '../design/images.dart';
 import '../design/theme.dart';
 
 class BottlesList extends StatelessWidget {
-  List<BottleLot> bottlesList = [];
-  BottlesList({super.key, required this.bottlesList});
+ final List<BottleLot> bottlesList;
+  const BottlesList({super.key, required this.bottlesList});
 
   @override
   Widget build(BuildContext context) {

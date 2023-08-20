@@ -2,20 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/widgets/bottles_list.dart';
 import 'package:get/get.dart';
 
-
 import '../../modules/home/controllers/home_controller.dart';
 import '../design/colors.dart';
 import '../design/images.dart';
 import '../design/theme.dart';
 
 class BottomSheetGen extends StatelessWidget {
-  String name = "";
-  String number = "";
-  String place = "";
-  String openDate = "";
-  String openHours = "";
+  final String name;
+  final String number;
+  final String place;
+  final String openDate;
+  final String openHours;
 
-  BottomSheetGen({
+  const BottomSheetGen({
     super.key,
     required this.name,
     required this.number,
@@ -67,7 +66,8 @@ class BottomSheetGen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
+                        padding: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.075),
                         child: Column(
                           children: [
                             const Icon(
@@ -80,7 +80,8 @@ class BottomSheetGen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
+                        padding: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.075),
                         child: Column(
                           children: [
                             const Icon(
@@ -93,7 +94,8 @@ class BottomSheetGen extends StatelessWidget {
                         ),
                       ),
                       Padding(
-                        padding: const EdgeInsets.only(right: 25.0),
+                        padding: EdgeInsets.only(
+                            right: MediaQuery.of(context).size.width * 0.075),
                         child: Column(
                           children: [
                             const Icon(

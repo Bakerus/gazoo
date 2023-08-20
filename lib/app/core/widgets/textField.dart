@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/colors.dart';
 import '../design/theme.dart';
 
-class TextFieldGen extends StatelessWidget {
-  String labelText = "";
-  TextEditingController? textFieldController;
 
-  TextFieldGen({
+class TextFieldGen extends StatelessWidget {
+  final String labelText;
+  final TextEditingController? textFieldController;
+
+  const TextFieldGen({
     super.key,
     required this.labelText,
     this.textFieldController,

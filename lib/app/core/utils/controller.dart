@@ -58,8 +58,10 @@ class GlobalAppController extends GetxController {
         address: addressController.text,
         phone: numberController.text);
 
+     printInfo(info:clients.toString());
+
     getStorage.write("name", firstNameController.text);
-    Get.off(HomeView());
+    Get.off(const HomeView());
   }
 
 }

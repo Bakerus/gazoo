@@ -6,7 +6,7 @@ import 'package:gazoo/app/core/design/colors.dart';
 class StationPopup extends StatefulWidget {
   final List<Vendors> vendorsLists;
 
-  StationPopup({super.key, required this.vendorsLists});
+  const StationPopup({super.key, required this.vendorsLists});
 
   @override
   _StationPopupState createState() => _StationPopupState();

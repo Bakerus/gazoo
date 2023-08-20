@@ -1,3 +1,5 @@
+// ignore_for_file: avoid_function_literals_in_foreach_calls
+
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/widgets/bottom_sheet.dart';
@@ -20,7 +22,7 @@ class HomeController extends GetxController {
   final cameraPosition = const CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.4746)
       .obs;
-  final Completer<GoogleMapController> _controller =
+  final Completer<GoogleMapController> mapController =
       Completer<GoogleMapController>();
   final stateCurrentLocation = false.obs;
   final depotGazLocation = false.obs;
@@ -65,10 +67,16 @@ class HomeController extends GetxController {
           stateCurrentLocation.value = true;
           latitude.value = currentLocation.latitude!;
           longitude.value = currentLocation.longitude!;
-          initialCameraPosition(
-              latitude: currentLocation.latitude!,
-              longitude: currentLocation
-                  .longitude!); // Cette fonction permet de mettre la camera sur la position initial ou se trouve l'utilisateur
+
+          cameraPosition.value = CameraPosition(
+            target: LatLng(latitude.value, longitude.value),
+            zoom: 15.5,
+          );
+
+          // initialCameraPosition(
+          //     latitude: currentLocation.latitude!,
+          //     longitude: currentLocation.longitude!,
+          //     resetCamera: true ); // Cette fonction permet de mettre la camera sur la position initial ou se trouve l'utilisateur
 
           customIcon(
               statut: true,
@@ -91,15 +99,20 @@ class HomeController extends GetxController {
     );
   }
 
-  void initialCameraPosition(
-      {required double latitude, required double longitude}) {
-    cameraPosition.value = CameraPosition(target: LatLng(latitude, longitude), zoom: 15.5);
-    _goToTheCamperaPosition(cameraPosition: cameraPosition.value);
-  }
+  // void initialCameraPosition(
+  //     {required double latitude,
+  //     required double longitude,
+  //     bool resetCamera = false}) {
+  //   print("initialCameraPosition");
+  //   if (resetCamera) {
+  //     cameraPosition.value = CameraPosition(target: LatLng(latitude, longitude), zoom: 15.5);
+  //   }
+  //   print(cameraPosition.value);
+  //   goToTheCameraPosition(cameraPosition: cameraPosition.value);
+  // }
 
-  Future<void> _goToTheCamperaPosition(
-      {required CameraPosition cameraPosition}) async {
-    final GoogleMapController controller = await _controller.future;
+  Future<void> goToTheCameraPosition({required CameraPosition cameraPosition}) async {
+    final GoogleMapController controller = await mapController.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
@@ -129,10 +142,6 @@ class HomeController extends GetxController {
         icon: icon,
         onTap: () async {
           if (statut == false) {
-            idVendeur.value = markerId;
-            bottlesList.value =
-                await vendorsProvider.getBottleLot(id: markerId);
-
             Get.bottomSheet(
                 BottomSheetGen(
                   name: name,
@@ -144,6 +153,9 @@ class HomeController extends GetxController {
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
                 barrierColor: const Color.fromRGBO(0, 0, 0, 0.58));
+            bottlesList.clear();
+            idVendeur.value = markerId;
+            bottlesList.value = await vendorsProvider.getBottleLot(id: markerId);
           }
         },
       ));
