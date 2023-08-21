@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:gazoo/app/data/models/clients.dart';
 import 'package:gazoo/app/data/provider/clients_provider.dart';
 import 'package:gazoo/app/modules/home/views/home_view.dart';
+import 'package:gazoo/app/modules/signUp/views/sign_up_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../widgets/snackbar.dart';
@@ -14,6 +15,7 @@ class GlobalAppController extends GetxController {
   TextEditingController addressController = TextEditingController();
   ClientsProvider clientsProvider = ClientsProvider();
   GetStorage getStorage = GetStorage();
+  final islogged = false.obs;
 
   @override
   void onClose() {
@@ -51,17 +53,21 @@ class GlobalAppController extends GetxController {
     }
   }
 
-  Future createAccountController() async{
-    Clients clients = await clientsProvider.createAccount(
+  Future createAccountController() async {
+    Clients? clients = await clientsProvider.createAccount(
         name: firstNameController.text,
         surname: secondNameController.text,
         address: addressController.text,
         phone: numberController.text);
 
-     printInfo(info:clients.toString());
-
-    getStorage.write("name", firstNameController.text);
-    Get.off(const HomeView());
+    if (clients != null) {
+      printInfo(info: clients.toString());
+      getStorage.write("name", firstNameController.text);
+      islogged.value = true;
+      Get.off(const HomeView());
+    }
+    else{
+      Get.to(const SignUpView());
+    }
   }
-
 }
