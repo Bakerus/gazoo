@@ -12,12 +12,13 @@ import 'marques_popup.dart';
 
 class HomeView extends GetView<HomeController> {
   const HomeView({Key? key}) : super(key: key);
-
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     GetStorage getstorage = GetStorage();
     final controller = Get.put(HomeController());
+    
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -110,10 +111,10 @@ class HomeView extends GetView<HomeController> {
                                 width: 41.0,
                                 height: 41.0,
                               ),
-                              Text(
-                                "tradex",
-                                style: AppTheme.ligthTheme.textTheme.subtitle2,
-                              )
+                              Obx(() => Text(
+                              controller.selectedBrand.value, // Affiche la marque sélectionnée
+                              style: AppTheme.ligthTheme.textTheme.subtitle2,
+                             ))
                             ],
                           ),
                         ),

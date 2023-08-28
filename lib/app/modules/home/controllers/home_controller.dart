@@ -19,6 +19,7 @@ class HomeController extends GetxController {
   var userPosition = RxSet<Marker>();
   var vendorsPosition = RxSet<Marker>();
   var globalMarker = RxSet<Marker>();
+  var selectedBrand = "".obs;
   final cameraPosition = const CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.4746)
       .obs;
