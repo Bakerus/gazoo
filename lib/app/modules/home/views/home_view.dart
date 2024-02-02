@@ -11,7 +11,7 @@ import 'station_popup.dart';
 import 'marques_popup.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
+  const HomeView({super.key});
   
   @override
   Widget build(BuildContext context) {
@@ -35,12 +35,12 @@ class HomeView extends GetView<HomeController> {
                         backgroundColor: AppColors.brown,
                         child: Text(
                           "G",
-                          style: AppTheme.ligthTheme.textTheme.headline4,
+                          style: AppTheme.ligthTheme.textTheme.headlineMedium,
                         ),
                       ),
                       Text(
                         getstorage.read("name"),
-                        style: AppTheme.ligthTheme.textTheme.headline3,
+                        style: AppTheme.ligthTheme.textTheme.displaySmall,
                       ),
                     ],
                   ),
@@ -59,8 +59,7 @@ class HomeView extends GetView<HomeController> {
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      child: (((controller.stateCurrentLocation.value==true) &&
-                              (controller.depotGazLocation.value == true)))
+                      child: (((controller.stateCurrentLocation.value==true) && (controller.depotGazLocation.value == true )) || (controller.vendorsLists.isNotEmpty) )
                           ? GoogleMap(
                               zoomControlsEnabled: false,
                               mapType: MapType.normal,
@@ -113,7 +112,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Obx(() => Text(
                               controller.selectedBrand.value, // Affiche la marque sélectionnée
-                              style: AppTheme.ligthTheme.textTheme.subtitle2,
+                              style: AppTheme.ligthTheme.textTheme.titleSmall,
                              ))
                             ],
                           ),
@@ -133,7 +132,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "Localiser",
-                                style: AppTheme.ligthTheme.textTheme.subtitle2,
+                                style: AppTheme.ligthTheme.textTheme.titleSmall,
                               )
                             ],
                           ),
@@ -158,7 +157,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "station tradex",
-                                style: AppTheme.ligthTheme.textTheme.subtitle2,
+                                style: AppTheme.ligthTheme.textTheme.titleSmall,
                               )
                             ],
                           ),

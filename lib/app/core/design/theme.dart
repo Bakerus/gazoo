@@ -9,52 +9,52 @@ class AppTheme {
       size: 8,
     ),
     textTheme: const TextTheme(
-        headline6: TextStyle(
+        titleLarge: TextStyle(
             fontSize: 8,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w300,
             color: AppColors.lowblack),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
             fontSize: 20,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.brown),
-        headline4: TextStyle(
+        headlineMedium: TextStyle(
             fontSize: 26,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.white),
-        headline3: TextStyle(
+        displaySmall: TextStyle(
             fontSize: 16,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w600,
             color: AppColors.lowblack),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.brown),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.lowblack),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
             fontSize: 16,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.highblack),
-        subtitle2: TextStyle(
+        titleSmall: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w400,
             color: AppColors.lowblack),
-        caption: TextStyle(
+        bodySmall: TextStyle(
             fontSize: 12,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w300,
             color: AppColors.grey),
-        button: TextStyle(
+        labelLarge: TextStyle(
             fontSize: 12,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,

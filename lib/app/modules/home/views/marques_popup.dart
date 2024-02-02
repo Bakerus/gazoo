@@ -15,6 +15,7 @@ class _MarquesPopupState extends State<MarquesPopup> {
   int selectedIndex = 0;
    late String selectedBrand;
 
+
   
 
   @override
@@ -22,6 +23,7 @@ class _MarquesPopupState extends State<MarquesPopup> {
     super.initState();
     final brandController = Get.put(BrandController());
     brandController.fetchBrands(); // Appel de la méthode pour récupérer les données
+
 
 
 
@@ -43,7 +45,7 @@ class _MarquesPopupState extends State<MarquesPopup> {
       ),
       child: Obx(() {
         if (brandController.isLoading.value) {
-          return Center(child: CircularProgressIndicator());
+          return const Center(child: CircularProgressIndicator());
         }
 
         return Container(
@@ -120,11 +122,18 @@ class _MarquesPopupState extends State<MarquesPopup> {
               ),
               const SizedBox(height: 25),
               ElevatedButton(
-                onPressed: () {
+                onPressed: () async {
                  // Logique de sélection
                     final controller = Get.put(HomeController());
+
                     controller.selectedBrand.value = selectedBrand; // Met à jour la marque sélectionnée dans HomeController
-                    Get.back(); // Ferme la popup après la sélection 
+                    final existingController = Get.find<HomeController>(); // Use Get.find to get the existing instance
+                    await existingController.depotGazByBrandDisplaying(selectedBrand);
+
+
+
+                    Get.back();
+
                 },
                 style: ElevatedButton.styleFrom(
                   backgroundColor: Colors.orange,

@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../controllers/sign_up_controller.dart';
 
 class SignUpView extends GetView<SignUpController> {
-  const SignUpView({Key? key}) : super(key: key);
+  const SignUpView({super.key});
   @override
   Widget build(BuildContext context) {
     // GlobalAppController control = GlobalAppController();
@@ -30,7 +30,7 @@ class SignUpView extends GetView<SignUpController> {
                         height: 133,
                         child: Image.asset(AppImages.gazooLogo)),
                     Text("Inscription",
-                        style: AppTheme.ligthTheme.textTheme.headline5),
+                        style: AppTheme.ligthTheme.textTheme.headlineSmall),
                   ],
                 ),
                 SizedBox(
@@ -69,7 +69,7 @@ class SignUpView extends GetView<SignUpController> {
                         style: AppTheme.ligthTheme.elevatedButtonTheme.style,
                         child: Text(
                           "Enregistrer",
-                          style: AppTheme.ligthTheme.textTheme.button,
+                          style: AppTheme.ligthTheme.textTheme.labelLarge,
                         )),
                   ],
                 )

@@ -93,7 +93,7 @@ class BottlesList extends StatelessWidget {
                 children: [
                   Text(
                     bottlesList[index].brand.brandName,
-                    style: AppTheme.ligthTheme.textTheme.subtitle2,
+                    style: AppTheme.ligthTheme.textTheme.titleSmall,
                   ),
                   Image.asset(AppImages.prix,
                       fit: BoxFit.cover, width: 30, height: 30),
@@ -106,10 +106,10 @@ class BottlesList extends StatelessWidget {
                           children: [
                             Text(
                               bottlesList[index].weight.toString(),
-                              style: AppTheme.ligthTheme.textTheme.bodyText1,
+                              style: AppTheme.ligthTheme.textTheme.bodyLarge,
                             ),
                             Text(bottlesList[index].price.toString(),
-                                style: AppTheme.ligthTheme.textTheme.headline6),
+                                style: AppTheme.ligthTheme.textTheme.titleLarge),
                           ],
                         ),
                       ],
@@ -148,7 +148,7 @@ class BottlesList extends StatelessWidget {
                 children: [
                   Text(
                     bottlesList[index].brand.brandName,
-                    style: AppTheme.ligthTheme.textTheme.subtitle2,
+                    style: AppTheme.ligthTheme.textTheme.titleSmall,
                   ),
                   Image.asset(AppImages.prix,
                       fit: BoxFit.cover, width: 30, height: 30),
@@ -161,21 +161,21 @@ class BottlesList extends StatelessWidget {
                           children: [
                             Text(
                               bottlesList[index].weight.toString(),
-                              style: AppTheme.ligthTheme.textTheme.bodyText1,
+                              style: AppTheme.ligthTheme.textTheme.bodyLarge,
                             ),
                             Text(bottlesList[index].price.toString(),
-                                style: AppTheme.ligthTheme.textTheme.headline6),
+                                style: AppTheme.ligthTheme.textTheme.titleLarge),
                           ],
                         ),
                         Column(
                           children: [
                             Text(
                               bottlesList[index + 1].weight.toString(),
-                              style: AppTheme.ligthTheme.textTheme.bodyText1,
+                              style: AppTheme.ligthTheme.textTheme.bodyLarge,
                             ),
                             Text(
                               bottlesList[index + 1].price.toString(),
-                              style: AppTheme.ligthTheme.textTheme.headline6,
+                              style: AppTheme.ligthTheme.textTheme.titleLarge,
                             ),
                           ],
                         ),

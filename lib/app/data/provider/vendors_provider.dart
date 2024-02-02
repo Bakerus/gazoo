@@ -40,4 +40,19 @@ class VendorsProvider {
 
   }
 
+
+  Future<List<Vendors>> getByBrand({required String? brandName}) async{
+    final response = await http.get(Uri.parse("$urlBase/gazoo/vendors/getByBrand/$brandName") );
+
+    if (response.statusCode == 200){
+      print(response.body);
+      return parseVendors(responseBody: response.body);
+
+    }
+    else {
+      throw Exception('Failed to load vendors by band');
+    }
+
+  }
+
 }

@@ -50,7 +50,7 @@ class BottomSheetGen extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: AppTheme.ligthTheme.textTheme.headline3,
+                    style: AppTheme.ligthTheme.textTheme.displaySmall,
                   ),
                   Column(
                     children: [
@@ -58,7 +58,7 @@ class BottomSheetGen extends StatelessWidget {
                           color: AppColors.brown),
                       Text(
                         number,
-                        style: AppTheme.ligthTheme.textTheme.bodyText2,
+                        style: AppTheme.ligthTheme.textTheme.bodyMedium,
                       )
                     ],
                   ),
@@ -75,7 +75,7 @@ class BottomSheetGen extends StatelessWidget {
                               color: AppColors.brown,
                             ),
                             Text(place,
-                                style: AppTheme.ligthTheme.textTheme.bodyText2)
+                                style: AppTheme.ligthTheme.textTheme.bodyMedium)
                           ],
                         ),
                       ),
@@ -89,7 +89,7 @@ class BottomSheetGen extends StatelessWidget {
                               color: AppColors.brown,
                             ),
                             Text(openDate,
-                                style: AppTheme.ligthTheme.textTheme.bodyText2)
+                                style: AppTheme.ligthTheme.textTheme.bodyMedium)
                           ],
                         ),
                       ),
@@ -104,7 +104,7 @@ class BottomSheetGen extends StatelessWidget {
                             ),
                             Text(
                               openHours,
-                              style: AppTheme.ligthTheme.textTheme.bodyText2,
+                              style: AppTheme.ligthTheme.textTheme.bodyMedium,
                             )
                           ],
                         ),

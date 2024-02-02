@@ -25,7 +25,7 @@ class Snackbar extends StatelessWidget {
         ),
         messageText: Text(
           message,
-          style: Get.theme.textTheme.caption,
+          style: Get.theme.textTheme.bodySmall,
         ),
         // icon: IconButton(onPressed: null, icon: Icon(Icons.close)),
         snackPosition: SnackPosition.BOTTOM,
