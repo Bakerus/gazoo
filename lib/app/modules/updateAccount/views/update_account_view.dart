@@ -7,7 +7,7 @@ import '../../../core/widgets/textField.dart';
 import '../controllers/update_account_controller.dart';
 
 class UpdateAccountView extends GetView<UpdateAccountController> {
-  const UpdateAccountView({Key? key}) : super(key: key);
+  const UpdateAccountView({super.key});
   @override
   Widget build(BuildContext context) {
     final globalAppControl = Get.put(GlobalAppController());

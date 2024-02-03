@@ -17,7 +17,8 @@ import '../../../core/design/images.dart';
 class HomeController extends GetxController {
   var userPosition = RxSet<Marker>();
   var vendorsPosition = RxSet<Marker>();
-  var globalMarker = RxSet<Marker>();
+  RxSet<Marker> globalMarker = RxSet<Marker>();
+  var selectedBrand = "".obs;
   final cameraPosition = const CameraPosition(
           target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.4746)
       .obs;
@@ -25,6 +26,7 @@ class HomeController extends GetxController {
       Completer<GoogleMapController>();
   final stateCurrentLocation = false.obs;
   final depotGazLocation = false.obs;
+  final depotGazLocationByBrand = false.obs;
   final idVendeur = 0.obs;
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
@@ -33,14 +35,32 @@ class HomeController extends GetxController {
   List<Vendors> vendorsLists = <Vendors>[].obs;
   final bottlesList = RxList<BottleLot>();
 
+
+
+
   @override
   void onInit() async {
     super.onInit();
+
     getPosition(); // Cette fonction permet recuperer la position de l'utilisateur et l'affiche à l'ecran sur la map
-    vendorsLists = await vendorsProvider.getAllvendors();
-    depotGazDisplaying(); // Cette fonction permet recuperer la position des vendeurs de gaz et l'affiche à l'ecran sur la map
+    //vendorsLists = await vendorsProvider.getAllvendors();
+    //depotGazDisplaying(); // Cette fonction permet recuperer la position des vendeurs de gaz et l'affiche à l'ecran sur la map
+    if (selectedBrand.value.isEmpty) {
+      // No brand selected, display all vendors
+      vendorsLists = await vendorsProvider.getAllvendors();
+      depotGazDisplaying();
+    } else {
+      // Brand selected, display vendors for the selected brand
+      vendorsLists = await vendorsProvider.getByBrand(brandName: selectedBrand.value);
+      depotGazByBrandDisplaying(selectedBrand.value);
+    }
+
   }
 
+  @override
+  void refresh() {
+    update(); // This will trigger a rebuild of the widget that is using this controller
+  }
   void customIcon(
       {required bool statut,
       required double width,
@@ -143,6 +163,7 @@ class HomeController extends GetxController {
   }
 
   depotGazDisplaying() {
+
     vendorsLists.forEach((element) {
       int timeTablelist = element.timeTables!.timeTables.length;
       String? getTimetables() {
@@ -172,5 +193,51 @@ class HomeController extends GetxController {
           openHours: getTimetables()!.split(':').last);
     });
     depotGazLocation.value = true;
+
   }
+
+  // methode pour afficher les vendeurs possedant la marque
+  depotGazByBrandDisplaying(String selectedBrand) async {
+    globalMarker.value.clear();
+    final vendorsLists = await vendorsProvider.getByBrand(brandName: selectedBrand);
+    print(vendorsLists.length);
+    vendorsLists.forEach((vendor) {
+      int timeTablelist = vendor.timeTables!.timeTables.length;
+      print(vendor.name);
+      String? getTimetables() {
+        if (timeTablelist == 1) {
+          return "${vendor.timeTables!.timeTables[timeTablelist - 1].day.replaceAll('Tous les jours', '7j/7')} : ${vendor.timeTables!.timeTables[timeTablelist - 1].time}";
+        } else {
+          return "${vendor.timeTables!.timeTables[timeTablelist - timeTablelist].day.replaceAll('Tous les jours', '7j/7')} \n ${vendor.timeTables!.timeTables[timeTablelist - (timeTablelist - 1)].day.replaceAll('Tous les jours', '7j/7')}: ${vendor.timeTables!.timeTables[timeTablelist - timeTablelist].time} \n ${vendor.timeTables!.timeTables[timeTablelist - (timeTablelist - 1)].time}";
+        }
+      }
+
+      customIcon(
+        statut: false,
+        width: 34,
+        height: 34,
+        assetName: AppImages.depotGazMap,
+        marker: globalMarker,
+        markerId: vendor.id,
+        latitude: vendor.localisation!.latitude,
+        longitude: vendor.localisation!.longitude,
+        name: vendor.name,
+        number: vendor.phone,
+        place: vendor.address,
+        openDate: getTimetables()!.split(':').first,
+        openHours: getTimetables()!.split(':').last,
+      );
+    });
+    print("test");
+
+
+    depotGazLocation.value = true;
+
+
+    //vendorsLists.clear();
+    print(vendorsLists);
+
+  }
+
+
 }

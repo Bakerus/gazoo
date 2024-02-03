@@ -7,7 +7,7 @@ import 'package:get/get.dart';
 import '../controllers/sign_up_controller.dart';
 
 class SignUpView extends GetView<SignUpController> {
-  const SignUpView({Key? key}) : super(key: key);
+  const SignUpView({super.key});
   @override
   Widget build(BuildContext context) {
     // GlobalAppController control = GlobalAppController();

@@ -11,13 +11,14 @@ import 'station_popup.dart';
 import 'marques_popup.dart';
 
 class HomeView extends GetView<HomeController> {
-  const HomeView({Key? key}) : super(key: key);
-
+  const HomeView({super.key});
+  
   @override
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations([DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     GetStorage getstorage = GetStorage();
     final controller = Get.put(HomeController());
+    
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -58,8 +59,7 @@ class HomeView extends GetView<HomeController> {
                         topLeft: Radius.circular(30),
                         topRight: Radius.circular(30),
                       ),
-                      child: (((controller.stateCurrentLocation.value==true) &&
-                              (controller.depotGazLocation.value == true)))
+                      child: (((controller.stateCurrentLocation.value==true) && (controller.depotGazLocation.value == true )) || (controller.vendorsLists.isNotEmpty) )
                           ? GoogleMap(
                               zoomControlsEnabled: false,
                               mapType: MapType.normal,
@@ -110,10 +110,10 @@ class HomeView extends GetView<HomeController> {
                                 width: 41.0,
                                 height: 41.0,
                               ),
-                              Text(
-                                "tradex",
-                                style: AppTheme.ligthTheme.textTheme.titleSmall,
-                              )
+                              Obx(() => Text(
+                              controller.selectedBrand.value, // Affiche la marque sélectionnée
+                              style: AppTheme.ligthTheme.textTheme.titleSmall,
+                             ))
                             ],
                           ),
                         ),
