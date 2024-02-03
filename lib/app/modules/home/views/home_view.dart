@@ -156,7 +156,7 @@ class HomeView extends GetView<HomeController> {
                                 height: 41.0,
                               ),
                               Text(
-                                "station tradex",
+                                "Depots",
                                 style: AppTheme.ligthTheme.textTheme.titleSmall,
                               )
                             ],

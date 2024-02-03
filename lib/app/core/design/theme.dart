@@ -3,11 +3,25 @@ import 'package:gazoo/app/core/design/colors.dart';
 
 class AppTheme {
   static final ligthTheme = ThemeData(
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: Colors.white,
+      onPrimary: Colors.white,
+      secondary: Colors.white,
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.white,
+      background: Colors.white,
+      onBackground: Colors.black,
+      surface: Colors.white,
+      onSurface: Colors.black,
+    ),
     fontFamily: "Poppins",
     iconTheme: const IconThemeData(
       color: AppColors.brown,
       size: 8,
     ),
+
     textTheme: const TextTheme(
         titleLarge: TextStyle(
             fontSize: 8,
@@ -32,7 +46,7 @@ class AppTheme {
         bodyLarge: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             color: AppColors.brown),
         bodyMedium: TextStyle(
             fontSize: 10,
@@ -59,6 +73,7 @@ class AppTheme {
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.white)),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -68,7 +83,6 @@ class AppTheme {
               MaterialStateProperty.all<Color>(const Color(0xFFFFFFFF)),
           shape: MaterialStateProperty.all<OutlinedBorder>(
             RoundedRectangleBorder(
-              // side: BorderSide(width: 1.0, color: AppColors.greenMaterial[900]!),
               borderRadius: BorderRadius.circular(25.0),
             ),
           )),
