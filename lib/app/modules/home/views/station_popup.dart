@@ -9,7 +9,7 @@ class StationPopup extends StatefulWidget {
   const StationPopup({super.key, required this.vendorsLists});
 
   @override
-  _StationPopupState createState() => _StationPopupState();
+  State<StationPopup> createState() => _StationPopupState();
 }
 
 class _StationPopupState extends State<StationPopup> {

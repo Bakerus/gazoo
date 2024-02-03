@@ -7,11 +7,13 @@ import '../../core/widgets/snackbar.dart';
 String urlBase = "http://gazoo.alwaysdata.net";
 
 class ClientsProvider {
+
   Future<Clients?> createAccount(
       {required String name,
       required String surname,
       required String address,
       required String phone}) async {
+        
     final response = await http.post(
       Uri.parse("$urlBase/gazoo/clients/save"),
       headers: <String, String>{
@@ -34,4 +36,5 @@ class ClientsProvider {
           return null;
     }
   }
+
 }

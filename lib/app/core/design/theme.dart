@@ -3,62 +3,77 @@ import 'package:gazoo/app/core/design/colors.dart';
 
 class AppTheme {
   static final ligthTheme = ThemeData(
+    colorScheme: const ColorScheme(
+      brightness: Brightness.light,
+      primary: Colors.white,
+      onPrimary: Colors.white,
+      secondary: Colors.white,
+      onSecondary: Colors.black,
+      error: Colors.red,
+      onError: Colors.white,
+      background: Colors.white,
+      onBackground: Colors.black,
+      surface: Colors.white,
+      onSurface: Colors.black,
+    ),
     fontFamily: "Poppins",
     iconTheme: const IconThemeData(
       color: AppColors.brown,
       size: 8,
     ),
+
     textTheme: const TextTheme(
-        headline6: TextStyle(
+        titleLarge: TextStyle(
             fontSize: 8,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w300,
             color: AppColors.lowblack),
-        headline5: TextStyle(
+        headlineSmall: TextStyle(
             fontSize: 20,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.brown),
-        headline4: TextStyle(
+        headlineMedium: TextStyle(
             fontSize: 26,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.white),
-        headline3: TextStyle(
+        displaySmall: TextStyle(
             fontSize: 16,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w600,
             color: AppColors.lowblack),
-        bodyText1: TextStyle(
+        bodyLarge: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
             color: AppColors.brown),
-        bodyText2: TextStyle(
+        bodyMedium: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.lowblack),
-        subtitle1: TextStyle(
+        titleMedium: TextStyle(
             fontSize: 16,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.highblack),
-        subtitle2: TextStyle(
+        titleSmall: TextStyle(
             fontSize: 10,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w400,
             color: AppColors.lowblack),
-        caption: TextStyle(
+        bodySmall: TextStyle(
             fontSize: 12,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w300,
             color: AppColors.grey),
-        button: TextStyle(
+        labelLarge: TextStyle(
             fontSize: 12,
             fontFamily: "Poppins",
             fontWeight: FontWeight.w500,
             color: AppColors.white)),
+
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
           padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
@@ -68,7 +83,6 @@ class AppTheme {
               MaterialStateProperty.all<Color>(const Color(0xFFFFFFFF)),
           shape: MaterialStateProperty.all<OutlinedBorder>(
             RoundedRectangleBorder(
-              // side: BorderSide(width: 1.0, color: AppColors.greenMaterial[900]!),
               borderRadius: BorderRadius.circular(25.0),
             ),
           )),

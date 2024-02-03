@@ -34,12 +34,12 @@ class HomeView extends GetView<HomeController> {
                         backgroundColor: AppColors.brown,
                         child: Text(
                           "G",
-                          style: AppTheme.ligthTheme.textTheme.headline4,
+                          style: AppTheme.ligthTheme.textTheme.headlineMedium,
                         ),
                       ),
                       Text(
                         getstorage.read("name"),
-                        style: AppTheme.ligthTheme.textTheme.headline3,
+                        style: AppTheme.ligthTheme.textTheme.displaySmall,
                       ),
                     ],
                   ),
@@ -112,7 +112,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "tradex",
-                                style: AppTheme.ligthTheme.textTheme.subtitle2,
+                                style: AppTheme.ligthTheme.textTheme.titleSmall,
                               )
                             ],
                           ),
@@ -132,7 +132,7 @@ class HomeView extends GetView<HomeController> {
                               ),
                               Text(
                                 "Localiser",
-                                style: AppTheme.ligthTheme.textTheme.subtitle2,
+                                style: AppTheme.ligthTheme.textTheme.titleSmall,
                               )
                             ],
                           ),
@@ -156,8 +156,8 @@ class HomeView extends GetView<HomeController> {
                                 height: 41.0,
                               ),
                               Text(
-                                "station tradex",
-                                style: AppTheme.ligthTheme.textTheme.subtitle2,
+                                "Depots",
+                                style: AppTheme.ligthTheme.textTheme.titleSmall,
                               )
                             ],
                           ),

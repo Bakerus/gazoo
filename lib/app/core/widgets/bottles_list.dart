@@ -1,11 +1,12 @@
 import 'package:flutter/material.dart';
-
+import 'package:cached_network_image/cached_network_image.dart';
 import '../../data/models/bottle_lot.dart';
+import '../design/colors.dart';
 import '../design/images.dart';
 import '../design/theme.dart';
 
 class BottlesList extends StatelessWidget {
- final List<BottleLot> bottlesList;
+  final List<BottleLot> bottlesList;
   const BottlesList({super.key, required this.bottlesList});
 
   @override
@@ -70,6 +71,7 @@ class BottlesList extends StatelessWidget {
   Widget displaySingleCard(
       {required int index, required BuildContext context}) {
     return Card(
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
@@ -77,23 +79,35 @@ class BottlesList extends StatelessWidget {
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0)),
-              child: Image.network(
-                bottlesList[index].brand.bottleImage,
-                fit: BoxFit.cover,
-                width: 236,
-                height: 156,
-              ),
-            ),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
+                child: CachedNetworkImage(
+                    imageUrl: bottlesList[index].brand.bottleImage,
+                    placeholder: (context, url) =>
+                        const SizedBox(
+                          width: 10,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.brown,
+                              strokeWidth: 2,
+                            ),
+                          ),
+                        ),
+                    errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: AppColors.brown,
+                        ),
+                    fit: BoxFit.cover,
+                    width: 236,
+                    height: 156)),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     bottlesList[index].brand.brandName,
-                    style: AppTheme.ligthTheme.textTheme.subtitle2,
+                    style: AppTheme.ligthTheme.textTheme.titleSmall,
                   ),
                   Image.asset(AppImages.prix,
                       fit: BoxFit.cover, width: 30, height: 30),
@@ -105,11 +119,12 @@ class BottlesList extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              bottlesList[index].weight.toString(),
-                              style: AppTheme.ligthTheme.textTheme.bodyText1,
+                              "${bottlesList[index].weight.toString()} kg",
+                              style: AppTheme.ligthTheme.textTheme.bodyLarge,
                             ),
                             Text(bottlesList[index].price.toString(),
-                                style: AppTheme.ligthTheme.textTheme.headline6),
+                                style:
+                                    AppTheme.ligthTheme.textTheme.titleLarge),
                           ],
                         ),
                       ],
@@ -125,30 +140,42 @@ class BottlesList extends StatelessWidget {
   Widget displayCombinedCard(
       {required int index, required BuildContext context}) {
     return Card(
+        color: Colors.white,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(15),
         ),
-        elevation: 5.0,
+        elevation: 3.0,
         child: Column(
           children: [
             ClipRRect(
-              borderRadius: const BorderRadius.only(
-                  topLeft: Radius.circular(15.0),
-                  topRight: Radius.circular(15.0)),
-              child: Image.network(
-                bottlesList[index].brand.bottleImage,
-                fit: BoxFit.cover,
-                width: 236,
-                height: 156,
-              ),
-            ),
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
+                child: CachedNetworkImage(
+                    imageUrl: bottlesList[index].brand.bottleImage,
+                    placeholder: (context, url) => const SizedBox(
+                          width: 10,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.brown,
+                              strokeWidth: 2,
+                            ),
+                          ),
+                        ),
+                    errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: AppColors.brown,
+                        ),
+                    fit: BoxFit.cover,
+                    width: 236,
+                    height: 156)),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     bottlesList[index].brand.brandName,
-                    style: AppTheme.ligthTheme.textTheme.subtitle2,
+                    style: AppTheme.ligthTheme.textTheme.titleSmall,
                   ),
                   Image.asset(AppImages.prix,
                       fit: BoxFit.cover, width: 30, height: 30),
@@ -160,22 +187,23 @@ class BottlesList extends StatelessWidget {
                         Column(
                           children: [
                             Text(
-                              bottlesList[index].weight.toString(),
-                              style: AppTheme.ligthTheme.textTheme.bodyText1,
+                              "${bottlesList[index].weight.toString()} kg",
+                              style: AppTheme.ligthTheme.textTheme.bodyLarge,
                             ),
                             Text(bottlesList[index].price.toString(),
-                                style: AppTheme.ligthTheme.textTheme.headline6),
+                                style:
+                                    AppTheme.ligthTheme.textTheme.titleLarge),
                           ],
                         ),
                         Column(
                           children: [
                             Text(
-                              bottlesList[index + 1].weight.toString(),
-                              style: AppTheme.ligthTheme.textTheme.bodyText1,
+                              "${bottlesList[index + 1].weight.toString()} kg",
+                              style: AppTheme.ligthTheme.textTheme.bodyLarge,
                             ),
                             Text(
                               bottlesList[index + 1].price.toString(),
-                              style: AppTheme.ligthTheme.textTheme.headline6,
+                              style: AppTheme.ligthTheme.textTheme.titleLarge,
                             ),
                           ],
                         ),

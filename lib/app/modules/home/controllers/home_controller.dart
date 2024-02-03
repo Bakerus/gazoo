@@ -1,5 +1,4 @@
 // ignore_for_file: avoid_function_literals_in_foreach_calls
-
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/widgets/bottom_sheet.dart';
@@ -42,80 +41,6 @@ class HomeController extends GetxController {
     depotGazDisplaying(); // Cette fonction permet recuperer la position des vendeurs de gaz et l'affiche à l'ecran sur la map
   }
 
-  Future<void> getPosition() async {
-    Location location = Location();
-    bool serviceEnabled;
-    PermissionStatus permissionGranted;
-
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
-      if (!serviceEnabled) {
-        return;
-      }
-    }
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return;
-      }
-    }
-    location.getLocation().then(
-      (currentLocation) {
-        if (currentLocation != null) {
-          stateCurrentLocation.value = true;
-          latitude.value = currentLocation.latitude!;
-          longitude.value = currentLocation.longitude!;
-
-          cameraPosition.value = CameraPosition(
-            target: LatLng(latitude.value, longitude.value),
-            zoom: 15.5,
-          );
-
-          // initialCameraPosition(
-          //     latitude: currentLocation.latitude!,
-          //     longitude: currentLocation.longitude!,
-          //     resetCamera: true ); // Cette fonction permet de mettre la camera sur la position initial ou se trouve l'utilisateur
-
-          customIcon(
-              statut: true,
-              width: 20,
-              height: 20,
-              assetName: "assets/images/userPosition.png",
-              marker: globalMarker,
-              markerId: 0,
-              latitude: currentLocation.latitude!,
-              longitude: currentLocation.longitude!,
-              name: 'BAK',
-              number: 'BAK',
-              place: 'BAK',
-              openDate: 'BAK',
-              openHours: 'BAK');
-        } else {
-          stateCurrentLocation.value = false;
-        }
-      },
-    );
-  }
-
-  // void initialCameraPosition(
-  //     {required double latitude,
-  //     required double longitude,
-  //     bool resetCamera = false}) {
-  //   print("initialCameraPosition");
-  //   if (resetCamera) {
-  //     cameraPosition.value = CameraPosition(target: LatLng(latitude, longitude), zoom: 15.5);
-  //   }
-  //   print(cameraPosition.value);
-  //   goToTheCameraPosition(cameraPosition: cameraPosition.value);
-  // }
-
-  Future<void> goToTheCameraPosition({required CameraPosition cameraPosition}) async {
-    final GoogleMapController controller = await mapController.future;
-    controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
-  }
-
   void customIcon(
       {required bool statut,
       required double width,
@@ -155,18 +80,73 @@ class HomeController extends GetxController {
                 barrierColor: const Color.fromRGBO(0, 0, 0, 0.58));
             bottlesList.clear();
             idVendeur.value = markerId;
-            bottlesList.value = await vendorsProvider.getBottleLot(id: markerId);
+            bottlesList.value =
+                await vendorsProvider.getBottleLot(id: markerId);
           }
         },
       ));
     });
   }
 
+  Future<void> getPosition() async {
+    Location location = Location();
+    bool serviceEnabled;
+    PermissionStatus permissionGranted;
+
+    serviceEnabled = await location.serviceEnabled();
+    if (!serviceEnabled) {
+      serviceEnabled = await location.requestService();
+      if (!serviceEnabled) {
+        return;
+      }
+    }
+    permissionGranted = await location.hasPermission();
+    if (permissionGranted == PermissionStatus.denied) {
+      permissionGranted = await location.requestPermission();
+      if (permissionGranted != PermissionStatus.granted) {
+        return;
+      }
+    }
+    location.getLocation().then(
+      (currentLocation) {
+        stateCurrentLocation.value = true;
+        latitude.value = currentLocation.latitude!;
+        longitude.value = currentLocation.longitude!;
+
+        cameraPosition.value = CameraPosition(
+          target: LatLng(latitude.value, longitude.value),
+          zoom: 15.5,
+        );
+
+        customIcon(
+            statut: true,
+            width: 20,
+            height: 20,
+            assetName: "assets/images/userPosition.png",
+            marker: globalMarker,
+            markerId: 0,
+            latitude: currentLocation.latitude!,
+            longitude: currentLocation.longitude!,
+            name: 'BAK',
+            number: 'BAK',
+            place: 'BAK',
+            openDate: 'BAK',
+            openHours: 'BAK');
+            },
+    );
+  }
+
+  Future<void> goToTheCameraPosition(
+      {required CameraPosition cameraPosition}) async {
+    final GoogleMapController controller = await mapController.future;
+    controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
+  }
+
   depotGazDisplaying() {
     vendorsLists.forEach((element) {
       int timeTablelist = element.timeTables!.timeTables.length;
       String? getTimetables() {
-        for (var i = 0; i <= timeTablelist; i++) {
+        for (var i = 0; i <= timeTablelist;) {
           if (timeTablelist == 1) {
             return "${element.timeTables!.timeTables[timeTablelist - 1].day.replaceAll('Tous les jours', '7j/7')} : ${element.timeTables!.timeTables[timeTablelist - 1].time}";
           } else {

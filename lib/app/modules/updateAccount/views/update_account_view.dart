@@ -31,7 +31,7 @@ class UpdateAccountView extends GetView<UpdateAccountController> {
                           backgroundColor: AppColors.brown,
                           child: Text(
                             "G",
-                            style: AppTheme.ligthTheme.textTheme.headline4,
+                            style: AppTheme.ligthTheme.textTheme.headlineMedium,
                           ),
                         ),
                         Padding(
@@ -39,13 +39,13 @@ class UpdateAccountView extends GetView<UpdateAccountController> {
                               vertical: 40.0, horizontal: 15.0),
                           child: Text(
                               globalAppControl.firstNameController.text,
-                            style: AppTheme.ligthTheme.textTheme.headline3,
+                            style: AppTheme.ligthTheme.textTheme.displaySmall,
                           ),
                         )
                       ],
                     ),
                     Text("Modifier mes informations",
-                        style: AppTheme.ligthTheme.textTheme.headline5),
+                        style: AppTheme.ligthTheme.textTheme.headlineSmall),
                   ],
                 ),
                 SizedBox(
@@ -84,7 +84,7 @@ class UpdateAccountView extends GetView<UpdateAccountController> {
                         style: AppTheme.ligthTheme.elevatedButtonTheme.style,
                         child: Text(
                           "Enregistrer",
-                          style: AppTheme.ligthTheme.textTheme.button,
+                          style: AppTheme.ligthTheme.textTheme.labelLarge,
                         )),
                   ],
                 )

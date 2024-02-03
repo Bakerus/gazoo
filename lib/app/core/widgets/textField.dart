@@ -28,7 +28,7 @@ class TextFieldGen extends StatelessWidget {
               contentPadding: const EdgeInsets.only(left: 10.0),
               border: InputBorder.none,
               hintText: labelText,
-              hintStyle: AppTheme.ligthTheme.textTheme.caption),
+              hintStyle: AppTheme.ligthTheme.textTheme.bodySmall),
         ),
       ),
     );
