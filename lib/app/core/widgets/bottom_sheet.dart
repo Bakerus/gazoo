@@ -52,22 +52,29 @@ class BottomSheetGen extends StatelessWidget {
                     name,
                     style: AppTheme.ligthTheme.textTheme.displaySmall,
                   ),
-                  Column(
-                    children: [
-                      const Icon(Icons.phone_android_outlined,
-                          color: AppColors.brown),
-                      Text(
-                        number,
-                        style: AppTheme.ligthTheme.textTheme.bodyMedium,
-                      )
-                    ],
-                  ),
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.075),
+                    SizedBox(
+                      width: 120.0,
+                      child: Column(
+                        children: [
+                          const Icon(Icons.phone_android_outlined,
+                              color: AppColors.brown),
+                          Text(
+                            number,
+                            style: AppTheme.ligthTheme.textTheme.bodyMedium,
+                          )
+                        ],
+                      ),
+                    ),
+                  ]),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 120.0,
                         child: Column(
                           children: [
                             const Icon(
@@ -79,9 +86,8 @@ class BottomSheetGen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.075),
+                      SizedBox(
+                        width: 120.0,
                         child: Column(
                           children: [
                             const Icon(
@@ -93,9 +99,8 @@ class BottomSheetGen extends StatelessWidget {
                           ],
                         ),
                       ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                            right: MediaQuery.of(context).size.width * 0.075),
+                      SizedBox(
+                        width: 120.0,
                         child: Column(
                           children: [
                             const Icon(

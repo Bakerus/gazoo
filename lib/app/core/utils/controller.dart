@@ -15,7 +15,6 @@ class GlobalAppController extends GetxController {
   TextEditingController addressController = TextEditingController();
   ClientsProvider clientsProvider = ClientsProvider();
   GetStorage getStorage = GetStorage();
-  final islogged = false.obs;
 
   @override
   void onClose() {
@@ -54,20 +53,21 @@ class GlobalAppController extends GetxController {
   }
 
   Future createAccountController() async {
-    Clients? clients = await clientsProvider.createAccount(
-        name: firstNameController.text,
-        surname: secondNameController.text,
-        address: addressController.text,
-        phone: numberController.text);
+    try {
+      Clients? clients = await clientsProvider.createAccount(
+          name: firstNameController.text,
+          surname: secondNameController.text,
+          address: addressController.text,
+          phone: numberController.text);
 
-    if (clients != null) {
-      printInfo(info: clients.toString());
-      getStorage.write("name", firstNameController.text);
-      islogged.value = true;
-      Get.off(const HomeView());
-    }
-    else{
-      Get.to(const SignUpView());
+      if (clients != null) {
+        getStorage.write("name", firstNameController.text);
+        Get.off(const HomeView());
+      } else {
+        Get.to(const SignUpView());
+      }
+    } catch (e) {
+      // print(e);
     }
   }
 }

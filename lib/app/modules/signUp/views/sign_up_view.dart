@@ -55,6 +55,7 @@ class SignUpView extends GetView<SignUpController> {
                       TextFieldGen(
                         labelText: "Téléphone",
                         textFieldController: globalAppControl.numberController,
+                        textInputType: TextInputType.number,
                       ),
                     ],
                   ),

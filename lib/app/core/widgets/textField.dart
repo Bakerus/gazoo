@@ -7,11 +7,13 @@ import '../design/theme.dart';
 class TextFieldGen extends StatelessWidget {
   final String labelText;
   final TextEditingController? textFieldController;
+  final TextInputType? textInputType;
 
   const TextFieldGen({
     super.key,
     required this.labelText,
     this.textFieldController,
+    this.textInputType
   });
 
   @override
@@ -22,6 +24,7 @@ class TextFieldGen extends StatelessWidget {
         elevation: 2.0,
         borderRadius: BorderRadius.circular(10.0),
         child: TextField(
+          keyboardType: textInputType,
           controller: textFieldController,
           cursorColor: AppColors.brown,
           decoration: InputDecoration(

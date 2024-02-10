@@ -45,7 +45,6 @@ class VendorsProvider {
     final response = await http.get(Uri.parse("$urlBase/gazoo/vendors/getByBrand/$brandName") );
 
     if (response.statusCode == 200){
-      print(response.body);
       return parseVendors(responseBody: response.body);
 
     }

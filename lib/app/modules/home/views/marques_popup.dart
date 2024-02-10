@@ -1,8 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/images.dart';
+import 'package:gazoo/app/core/utils/extensions.dart';
 import 'package:gazoo/app/modules/home/controllers/home_controller.dart';
 import 'package:get/get.dart';
-import '../controllers/brand_controller.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
+
+import '../../../core/design/colors.dart';
 
 class MarquesPopup extends StatefulWidget {
   const MarquesPopup({super.key});
@@ -13,151 +16,140 @@ class MarquesPopup extends StatefulWidget {
 
 class _MarquesPopupState extends State<MarquesPopup> {
   int selectedIndex = 0;
-   late String selectedBrand;
-
-
-  
+  String selectedBrand = "";
+  final homeController = Get.put(HomeController());
 
   @override
   void initState() {
     super.initState();
-    final brandController = Get.put(BrandController());
-    brandController.fetchBrands(); // Appel de la méthode pour récupérer les données
-
-
-
-
+    homeController
+        .fetchBrands(); // Appel de la méthode pour récupérer les données
     // Initialisation de la variable selectedBrand avec la première marque
-    selectedBrand = brandController.brandList.isNotEmpty
-        ? brandController.brandList[0].brandName
+    selectedBrand = homeController.brandList.isNotEmpty
+        ? homeController.brandList[0].brandName
         : '';
   }
-   
-  
 
-   @override
+  @override
   Widget build(BuildContext context) {
-    final brandController = Get.find<BrandController>();
-
     return Dialog(
+      backgroundColor: const Color.fromRGBO(255, 255, 255, 0.96),
       shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16.0),
+        borderRadius: BorderRadius.circular(25.0),
       ),
-      child: Obx(() {
-        if (brandController.isLoading.value) {
-          return const Center(child: CircularProgressIndicator());
-        }
-
-        return Container(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Image.asset(
-                AppImages.bouteilleGaz,
-                width: 100,
-                height: 100,
-              ),
-              const SizedBox(height: 16),
-              const Text(
-                'Marques disponibles',
-                style: TextStyle(
-                  fontFamily: 'Poppins',
-                  fontWeight: FontWeight.w800,
-                  fontSize: 20,
-                ),
-              ),
-              const SizedBox(height: 35),
-              SizedBox(
-                height: 160,
-                child: ListWheelScrollView.useDelegate(
-                  itemExtent: 40,
-                  diameterRatio: 1.5,
-                  offAxisFraction: -0.05,
-                  physics: const FixedExtentScrollPhysics(),
-                  childDelegate: ListWheelChildBuilderDelegate(
-                    builder: (BuildContext context, int index) {
-                      final isSelected = selectedIndex == index;
-                      final fontSize = isSelected ? 18.0 : 16.0;
-                      final scale = isSelected ? 1.2 : 1.0;
-                      final marqueName = brandController.brandList[index].brandName;
-                      return Center(
-                        child: Container(
-                          decoration: isSelected
-                              ? BoxDecoration(
-                                  border: Border.all(
-                                    color: Colors.orange,
-                                    width: 1.5,
-                                  ),
-                                  borderRadius: BorderRadius.circular(12.0),
-                                )
-                              : null,
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(horizontal: 50.0),
-                            child: Transform.scale(
-                              scale: scale,
-                              child: Text(
-                                marqueName,
-                                style: TextStyle(
-                                  fontFamily: 'Poppins',
-                                  fontSize: fontSize,
-                                  fontWeight: FontWeight.bold,
-                                  color: isSelected ? Colors.black : Colors.grey,
-                                ),
-                              ),
-                            ),
-                          ),
-                        ),
-                      );
-                    },
-                    childCount: brandController.brandList.length,
+      child: Obx(() => (homeController.isLoading.value)
+          ? const Center(
+              child: CircularProgressIndicator(
+                  color: AppColors.brown, strokeWidth: 5.0))
+          : Container(
+              height: 50.0.hp,
+              padding: EdgeInsets.symmetric(vertical: 2.0.hp),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Image.asset(
+                    AppImages.bouteilleGaz,
+                    width: 25.0.sp,
+                    fit: BoxFit.cover,
                   ),
-                  onSelectedItemChanged: (int index) {
-                    setState(() {
-                      selectedIndex = index;
-                      selectedBrand = brandController.brandList[index].brandName; // Mise à jour de la marque sélectionnée
-                    });
-                  },
-                ),
-              ),
-              const SizedBox(height: 25),
-              ElevatedButton(
-                onPressed: () async {
-                 // Logique de sélection
-                    final controller = Get.put(HomeController());
-
-                    controller.selectedBrand.value = selectedBrand; // Met à jour la marque sélectionnée dans HomeController
-                    final existingController = Get.find<HomeController>(); // Use Get.find to get the existing instance
-                    await existingController.depotGazByBrandDisplaying(selectedBrand);
-
-
-
-                    Get.back();
-
-                },
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.orange,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(20),
-                  ),
-                ),
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(horizontal: 30, vertical: 10),
-                  child: Text(
-                    'Sélectionner',
+                  const Text(
+                    'Marques disponibles',
                     style: TextStyle(
                       fontFamily: 'Poppins',
                       fontWeight: FontWeight.w800,
-                      fontSize: 18,
-                      color: Colors.white,
+                      fontSize: 16,
                     ),
                   ),
-                ),
+                 
+                  SizedBox(
+                    height: 15.0.hp,
+                    child: ListWheelScrollView.useDelegate(
+                      itemExtent: 40,
+                      diameterRatio: 1.5,
+                      offAxisFraction: -0.05,
+                      physics: const FixedExtentScrollPhysics(),
+                      childDelegate: ListWheelChildBuilderDelegate(
+                        builder: (BuildContext context, int index) {
+                          final isSelected = selectedIndex == index;
+                          final fontSize = isSelected ? 14.0 : 10.0;
+                          final scale = isSelected ? 1.2 : 1.0;
+                          final marqueName =
+                              homeController.brandList[index].brandName;
+                          return Center(
+                            child: Container(
+                              decoration: isSelected
+                                  ? BoxDecoration(
+                                      border: Border.all(
+                                        color: Colors.orange,
+                                        width: 1.5,
+                                      ),
+                                      borderRadius: BorderRadius.circular(12.0),
+                                    )
+                                  : null,
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                    horizontal: 35.0),
+                                child: Transform.scale(
+                                  scale: scale,
+                                  child: Text(
+                                    marqueName,
+                                    style: TextStyle(
+                                      fontFamily: 'Poppins',
+                                      fontSize: fontSize,
+                                      fontWeight: FontWeight.w400,
+                                      color: isSelected
+                                          ? Colors.black
+                                          : Colors.grey,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          );
+                        },
+                        childCount: homeController.brandList.length,
+                      ),
+                      onSelectedItemChanged: (int index) {
+                        setState(() {
+                          selectedIndex = index;
+                          selectedBrand = homeController.brandList[index]
+                              .brandName; // Mise à jour de la marque sélectionnée
+                        });
+                      },
+                    ),
+                  ),
+                  
+                  ElevatedButton(
+                    onPressed: () {
+                      homeController.selectedBrand.value =
+                          selectedBrand; // Met à jour la marque sélectionnée dans HomeController
+                      homeController.removeMarkerById(const MarkerId("0"));
+                      homeController.depotGazByBrandDisplaying(selectedBrand);
+                      Get.back();
+                    },
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.orange,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(25),
+                      ),
+                    ),
+                    child: const Padding(
+                      padding:
+                          EdgeInsets.symmetric(horizontal: 30, vertical: 13),
+                      child: Text(
+                        'Selectionner',
+                        style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontWeight: FontWeight.bold,
+                          fontSize: 12,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
               ),
-            ],
-          ),
-        );
-      }),
+            )),
     );
   }
 }
