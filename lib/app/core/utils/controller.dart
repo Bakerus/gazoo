@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:gazoo/app/data/models/clients.dart';
 import 'package:gazoo/app/data/provider/clients_provider.dart';
 import 'package:gazoo/app/modules/home/views/home_view.dart';
-import 'package:gazoo/app/modules/signUp/views/sign_up_view.dart';
 import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 import '../widgets/snackbar.dart';
@@ -64,7 +63,8 @@ class GlobalAppController extends GetxController {
         getStorage.write("name", firstNameController.text);
         Get.off(const HomeView());
       } else {
-        Get.to(const SignUpView());
+        (Snackbar.showSnackbar(
+            title: "Erreur", message: "Ce Compte est déjà utilisé"));
       }
     } catch (e) {
       // print(e);

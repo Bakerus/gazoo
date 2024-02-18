@@ -77,67 +77,78 @@ class BottlesList extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         elevation: 3.0,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 5.0),
-          child: Column(
-            children: [
-              ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15.0),
-                      topRight: Radius.circular(15.0)),
-                  child: CachedNetworkImage(
-                      imageUrl: bottlesList[index].brand.bottleImage,
-                      placeholder: (context, url) => const SizedBox(
-                            width: 10,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.brown,
-                                strokeWidth: 2,
-                              ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
+                child: CachedNetworkImage(
+                    imageUrl: bottlesList[index].brand.bottleImage,
+                    placeholder: (context, url) => const SizedBox(
+                          width: 10,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.brown,
+                              strokeWidth: 2,
                             ),
                           ),
-                      errorWidget: (context, url, error) => const Icon(
-                            Icons.error_outline_sharp,
-                            color: AppColors.red,
-                            size: 25,
-                          ),
-                      fit: BoxFit.cover,
-                      width: 60.0.wp,
-                      height: 22.0.hp)),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      bottlesList[index].brand.brandName,
-                      style: AppTheme.ligthTheme.textTheme.titleSmall,
-                    ),
-                    Image.asset(AppImages.prix,
-                        fit: BoxFit.cover, width: 30, height: 30),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
+                        ),
+                    errorWidget: (context, url, error) => const Icon(
+                          Icons.error_outline_sharp,
+                          color: AppColors.red,
+                          size: 25,
+                        ),
+                    fit: BoxFit.cover,
+                    width: 60.0.wp,
+                    height: 22.0.hp)),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    bottlesList[index].brand.brandName,
+                    style: AppTheme.ligthTheme.textTheme.titleSmall!.copyWith(
+                        color: const Color.fromRGBO(57, 56, 56, 0.534),
+                        fontSize: 9.0.sp,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Image.asset(
+                    AppImages.prix,
+                    fit: BoxFit.cover,
+                    width: 10.0.wp,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.only(bottom: 1.0.hp),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          height: 5.0.hp,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 "${bottlesList[index].weight.toString()} kg",
-                                style: AppTheme.ligthTheme.textTheme.bodyLarge,
+                                style: AppTheme.ligthTheme.textTheme.bodyLarge!
+                                    .copyWith(fontSize: 8.0.sp),
                               ),
                               Text(bottlesList[index].price.toString(),
-                                  style:
-                                      AppTheme.ligthTheme.textTheme.titleLarge),
+                                  style: AppTheme
+                                      .ligthTheme.textTheme.titleLarge!
+                                      .copyWith(fontSize: 7.0.sp)),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ));
   }
 
@@ -149,79 +160,97 @@ class BottlesList extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         elevation: 3.0,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 5.0),
-          child: Column(
-            children: [
-              ClipRRect(
-                  borderRadius: const BorderRadius.only(
-                      topLeft: Radius.circular(15.0),
-                      topRight: Radius.circular(15.0)),
-                  child: CachedNetworkImage(
-                      imageUrl: bottlesList[index].brand.bottleImage,
-                      placeholder: (context, url) => const SizedBox(
-                            width: 10,
-                            child: Center(
-                              child: CircularProgressIndicator(
-                                color: AppColors.brown,
-                                strokeWidth: 2,
-                              ),
+        child: Column(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            ClipRRect(
+                borderRadius: const BorderRadius.only(
+                    topLeft: Radius.circular(15.0),
+                    topRight: Radius.circular(15.0)),
+                child: CachedNetworkImage(
+                    imageUrl: bottlesList[index].brand.bottleImage,
+                    placeholder: (context, url) => const SizedBox(
+                          width: 10,
+                          child: Center(
+                            child: CircularProgressIndicator(
+                              color: AppColors.brown,
+                              strokeWidth: 2,
                             ),
                           ),
-                      errorWidget: (context, url, error) => const Icon(
-                            Icons.error,
-                            color: AppColors.red,
-                            size: 25,
-                          ),
-                      fit: BoxFit.cover,
-                      width: 60.0.wp,
-                      height: 22.0.hp)),
-              Expanded(
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    Text(
-                      bottlesList[index].brand.brandName,
-                      style: AppTheme.ligthTheme.textTheme.titleSmall,
-                    ),
-                    Image.asset(AppImages.prix,
-                        fit: BoxFit.cover, width: 30, height: 30),
-                    SizedBox(
-                      width: MediaQuery.of(context).size.width * 0.6,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceAround,
-                        children: [
-                          Column(
+                        ),
+                    errorWidget: (context, url, error) => const Icon(
+                          Icons.error,
+                          color: AppColors.red,
+                          size: 25,
+                        ),
+                    fit: BoxFit.cover,
+                    width: 60.0.wp,
+                    height: 22.0.hp)),
+            Expanded(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                children: [
+                  Text(
+                    bottlesList[index].brand.brandName,
+                    style: AppTheme.ligthTheme.textTheme.titleSmall!.copyWith(
+                        color: const Color.fromRGBO(57, 56, 56, 0.534),
+                        fontSize: 9.0.sp,
+                        fontWeight: FontWeight.w500),
+                  ),
+                  Image.asset(
+                    AppImages.prix,
+                    fit: BoxFit.cover,
+                    width: 10.0.wp,
+                  ),
+                  Container(
+                    width: 60.0.wp,
+                    padding: EdgeInsets.only(bottom: 1.0.hp),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: [
+                        SizedBox(
+                          height: 5.0.hp,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 "${bottlesList[index].weight.toString()} kg",
-                                style: AppTheme.ligthTheme.textTheme.bodyLarge,
+                                style: AppTheme.ligthTheme.textTheme.bodyLarge!
+                                    .copyWith(fontSize: 8.0.sp),
                               ),
                               Text(bottlesList[index].price.toString(),
-                                  style:
-                                      AppTheme.ligthTheme.textTheme.titleLarge),
+                                  style: AppTheme
+                                      .ligthTheme.textTheme.titleLarge!
+                                      .copyWith(fontSize: 7.0.sp)),
                             ],
                           ),
-                          Column(
+                        ),
+                        SizedBox(
+                          height: 5.0.hp,
+                          child: Column(
+                            mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
                               Text(
                                 "${bottlesList[index + 1].weight.toString()} kg",
-                                style: AppTheme.ligthTheme.textTheme.bodyLarge,
+                                style: AppTheme.ligthTheme.textTheme.bodyLarge!
+                                    .copyWith(fontSize: 8.0.sp),
                               ),
                               Text(
                                 bottlesList[index + 1].price.toString(),
-                                style: AppTheme.ligthTheme.textTheme.titleLarge,
+                                style: AppTheme.ligthTheme.textTheme.titleLarge!
+                                    .copyWith(fontSize: 7.0.sp),
                               ),
                             ],
                           ),
-                        ],
-                      ),
+                        ),
+                      ],
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ));
   }
 }

@@ -43,24 +43,24 @@ class _MarquesPopupState extends State<MarquesPopup> {
                   color: AppColors.brown, strokeWidth: 5.0))
           : Container(
               height: 50.0.hp,
-              padding: EdgeInsets.symmetric(vertical: 2.0.hp),
+              padding: EdgeInsets.symmetric(vertical: 4.0.hp),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   Image.asset(
                     AppImages.bouteilleGaz,
-                    width: 25.0.sp,
+                    width: 28.0.sp,
                     fit: BoxFit.cover,
                   ),
-                  const Text(
+                  Text(
                     'Marques disponibles',
                     style: TextStyle(
                       fontFamily: 'Poppins',
-                      fontWeight: FontWeight.w800,
-                      fontSize: 16,
+                      color: AppColors.lowblack,
+                      fontWeight: FontWeight.w600,
+                      fontSize: 13.0.sp,
                     ),
                   ),
-                 
                   SizedBox(
                     height: 15.0.hp,
                     child: ListWheelScrollView.useDelegate(
@@ -71,7 +71,7 @@ class _MarquesPopupState extends State<MarquesPopup> {
                       childDelegate: ListWheelChildBuilderDelegate(
                         builder: (BuildContext context, int index) {
                           final isSelected = selectedIndex == index;
-                          final fontSize = isSelected ? 14.0 : 10.0;
+                          final fontSize = isSelected ? 13.0 : 9.0;
                           final scale = isSelected ? 1.2 : 1.0;
                           final marqueName =
                               homeController.brandList[index].brandName;
@@ -87,15 +87,15 @@ class _MarquesPopupState extends State<MarquesPopup> {
                                     )
                                   : null,
                               child: Padding(
-                                padding: const EdgeInsets.symmetric(
-                                    horizontal: 35.0),
+                                padding:  EdgeInsets.symmetric(
+                                    horizontal: 8.0.wp),
                                 child: Transform.scale(
                                   scale: scale,
                                   child: Text(
                                     marqueName,
                                     style: TextStyle(
                                       fontFamily: 'Poppins',
-                                      fontSize: fontSize,
+                                      fontSize: fontSize.sp,
                                       fontWeight: FontWeight.w400,
                                       color: isSelected
                                           ? Colors.black
@@ -118,7 +118,6 @@ class _MarquesPopupState extends State<MarquesPopup> {
                       },
                     ),
                   ),
-                  
                   ElevatedButton(
                     onPressed: () {
                       homeController.selectedBrand.value =
@@ -133,15 +132,15 @@ class _MarquesPopupState extends State<MarquesPopup> {
                         borderRadius: BorderRadius.circular(25),
                       ),
                     ),
-                    child: const Padding(
+                    child: Padding(
                       padding:
-                          EdgeInsets.symmetric(horizontal: 30, vertical: 13),
+                          EdgeInsets.symmetric(horizontal: 10.0.wp, vertical: 1.8.hp),
                       child: Text(
                         'Selectionner',
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
-                          fontSize: 12,
+                          fontSize: 11.0.sp,
                           color: Colors.white,
                         ),
                       ),

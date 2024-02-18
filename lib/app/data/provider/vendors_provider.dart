@@ -20,7 +20,6 @@ class VendorsProvider {
   Future<List<Vendors>> getAllvendors() async {
     final response = await http.get(Uri.parse("$urlBase/gazoo/vendors/all"));
     if (response.statusCode == 200) {
-      // var listvendeurs = parseVendors(responseBody: response.body);
       return parseVendors(responseBody: response.body);
     }
     else {

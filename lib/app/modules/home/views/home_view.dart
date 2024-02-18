@@ -20,19 +20,18 @@ class HomeView extends GetView<HomeController> {
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     GetStorage getstorage = GetStorage();
     final controller = Get.put(HomeController());
-    //  final controller = Get.lazyPut(() => HomeController());
 
     return Scaffold(
       body: SingleChildScrollView(
         child: Column(
           children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: 6.5.hp),
+            Container(
+              padding: EdgeInsets.symmetric(vertical: 5.0.hp),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Column(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       CircleAvatar(
                         backgroundColor: AppColors.brown,
@@ -43,7 +42,8 @@ class HomeView extends GetView<HomeController> {
                       ),
                       Text(
                         getstorage.read("name"),
-                        style: AppTheme.ligthTheme.textTheme.displaySmall,
+                        style: AppTheme.ligthTheme.textTheme.displaySmall!
+                            .copyWith(fontSize: 13.0.sp),
                       ),
                     ],
                   ),
@@ -55,7 +55,7 @@ class HomeView extends GetView<HomeController> {
                 alignment: Alignment.bottomCenter,
                 children: [
                   SizedBox(
-                    height: 78.6.hp,
+                    height: 81.7.hp,
                     width: 100.0.wp,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(
@@ -76,9 +76,8 @@ class HomeView extends GetView<HomeController> {
                                   controller.cameraPosition.value,
                               onMapCreated:
                                   (GoogleMapController googleMapController) {
-                                controller.mapController
+                                controller.mapController.value
                                     .complete(googleMapController);
-                                controller.test = googleMapController;
                               },
                             )
                           : const Center(
@@ -89,7 +88,6 @@ class HomeView extends GetView<HomeController> {
                   ),
                   Container(
                     margin: EdgeInsets.only(bottom: 3.0.hp),
-                    padding: EdgeInsets.symmetric(vertical: 12.0.sp),
                     width: 85.0.wp,
                     height: 13.5.hp,
                     decoration: BoxDecoration(
@@ -101,87 +99,98 @@ class HomeView extends GetView<HomeController> {
                       ],
                       borderRadius: BorderRadius.circular(25.0),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return const MarquesPopup();
+                        Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceAround,
+                          children: [
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return const MarquesPopup();
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(
-                                  AppImages.bouteilleGaz,
-                                  width: 41.0,
-                                  height: 41.0,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Image.asset(
+                                      AppImages.bouteilleGaz,
+                                      width: 21.5.sp,
+                                    ),
+                                    Obx(() => Text(
+                                          controller.selectedBrand
+                                              .value, // Affiche la marque sélectionnée
+                                          style: AppTheme
+                                              .ligthTheme.textTheme.titleSmall!
+                                              .copyWith(fontSize: 10.0.sp),
+                                        ))
+                                  ],
                                 ),
-                                Obx(() => Text(
-                                      controller.selectedBrand
-                                          .value, // Affiche la marque sélectionnée
+                              ),
+                            ),
+                            Expanded(
+                              child: InkWell(
+                                onTap: () {
+                                  controller.goToTheCameraPosition(
+                                      cameraPosition:
+                                          controller.cameraPosition.value);
+                                },
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Image.asset(
+                                      AppImages.userPosition,
+                                      width: 34.0.sp,
+                                    ),
+                                    Text(
+                                      "Localiser",
                                       style: AppTheme
-                                          .ligthTheme.textTheme.titleSmall,
-                                    ))
-                              ],
-                            ),
-                          ),
-                        ),
-                        Expanded(
-                          child: InkWell(
-                            onTap: () {
-                              controller.goToTheCameraPosition(
-                                  cameraPosition:
-                                      controller.cameraPosition.value);
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(
-                                  AppImages.userPosition,
-                                  width: 41.0,
-                                  height: 41.0,
+                                          .ligthTheme.textTheme.titleSmall!
+                                          .copyWith(fontSize: 10.0.sp),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  "Localiser",
-                                  style: AppTheme.ligthTheme.textTheme.titleSmall,
-                                )
-                              ],
+                              ),
                             ),
-                          ),
-                        ),
-                        Expanded(
-                          child: GestureDetector(
-                            onTap: () {
-                              showDialog(
-                                context: context,
-                                builder: (BuildContext context) {
-                                  return StationPopup(
-                                      brand: controller.selectedBrand.value,
-                                      vendorsLists: controller.vendorsLists);
+                            Expanded(
+                              child: GestureDetector(
+                                onTap: () {
+                                  showDialog(
+                                    context: context,
+                                    builder: (BuildContext context) {
+                                      return StationPopup(
+                                          brand: controller.selectedBrand.value,
+                                          vendorsLists:
+                                              controller.vendorsLists);
+                                    },
+                                  );
                                 },
-                              );
-                            },
-                            child: Column(
-                              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                              children: [
-                                Image.asset(
-                                  AppImages.listeDepots,
-                                  width: 41.0,
-                                  height: 41.0,
+                                child: Column(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    Image.asset(
+                                      AppImages.listeDepots,
+                                      width: 34.0.sp,
+                                    ),
+                                    Text(
+                                      "Depots",
+                                      style: AppTheme
+                                          .ligthTheme.textTheme.titleSmall!
+                                          .copyWith(fontSize: 10.0.sp),
+                                    )
+                                  ],
                                 ),
-                                Text(
-                                  "Depots",
-                                  style: AppTheme.ligthTheme.textTheme.titleSmall,
-                                )
-                              ],
+                              ),
                             ),
-                          ),
+                          ],
                         ),
                       ],
                     ),

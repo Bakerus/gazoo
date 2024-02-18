@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-
 import '../design/colors.dart';
-import '../design/fonts.dart';
+
 
 class Snackbar extends StatelessWidget {
   const Snackbar({super.key});
@@ -12,13 +11,14 @@ class Snackbar extends StatelessWidget {
     return Container();
   }
 
- static SnackbarController showSnackbar(
+  static SnackbarController showSnackbar(
       {required String title, required String message}) {
     return Get.snackbar("...", "...",
+        borderColor: Colors.black45,
         titleText: Text(
           title,
           style: const TextStyle(
-              fontFamily: AppFonts.poppins,
+              fontFamily: "Poppins",
               fontSize: 16,
               fontWeight: FontWeight.w600,
               color: AppColors.red),
@@ -27,7 +27,6 @@ class Snackbar extends StatelessWidget {
           message,
           style: Get.theme.textTheme.bodySmall,
         ),
-        // icon: IconButton(onPressed: null, icon: Icon(Icons.close)),
         snackPosition: SnackPosition.BOTTOM,
         margin: const EdgeInsets.only(bottom: 35.0, left: 10.0, right: 10.0),
         backgroundColor: const Color.fromRGBO(255, 255, 255, 1));

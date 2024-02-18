@@ -19,7 +19,7 @@ class BrandProvider {
     return brandList;
   } else {
     Snackbar.showSnackbar(
-      title: "Erreur",
+      title: "",
       message: "Pas de marque pour le moment",
     );
     return [];

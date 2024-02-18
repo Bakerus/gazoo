@@ -12,8 +12,13 @@ import '../../../data/provider/brand_provider.dart';
 import '../../../data/models/brand.dart';
 
 //  getPosition(): Cette fonction permet recuperer la position de l'utilisateur et l'affiche à l'ecran sur la map
-// Custom(): Cette fonction permet de mettre des marques(pour l'utilisateur ou les vendeurs) sur la map
+// CustomIcon(): Cette fonction permet de mettre des marques(pour l'utilisateur ou les vendeurs) sur la map
 //  depotGazByBrandDisplaying(String selectedBrand): Cette fonction permet d'afficher tous les vendeurs ou les vendeurs possedants une marque de gaz X
+// goToTheCameraPosition(CameraPosition cameraPosition) : Cette fonction permet de deplcer la camera au niveau de la position de l'utilisateur
+// removeMarkerById(MarkerId markerId) : Cette fonction permet de retirer les markers des vendeurs sur la carte
+// fetchBrands() : Cette fonction permet de recuperer la liste des marques de gaz vendues
+// getTimetables({required int timeTablelist, required Vendors vendor}) : Cette fonction permet de remplacer le mot "tous les jour" par 7j/7 sur le BottomSheet
+
 class HomeController extends GetxController {
   final globalMarker = <Marker>{}.obs;
   final cameraPosition = const CameraPosition(
@@ -26,9 +31,7 @@ class HomeController extends GetxController {
   final latitude = 0.0.obs;
   final longitude = 0.0.obs;
   final bottlesList = RxList<BottleLot>();
-  Completer<GoogleMapController> mapController =
-      Completer<GoogleMapController>();
-  GoogleMapController? test;
+  final mapController = Completer<GoogleMapController>().obs;
   LocationData? locationData;
   VendorsProvider vendorsProvider = VendorsProvider();
   List<Vendors> vendorsLists = <Vendors>[].obs;
@@ -36,7 +39,6 @@ class HomeController extends GetxController {
   var isLoading = true.obs;
   var selectedBrand = "".obs;
   int timeTablelist = 0;
-  // late Vendors vendors;
 
   @override
   void onInit() {
@@ -79,9 +81,11 @@ class HomeController extends GetxController {
                   openDate: openDate,
                   openHours: openHours,
                 ),
+                
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
                 barrierColor: const Color.fromRGBO(0, 0, 0, 0.58));
+              
             bottlesList.clear();
             idVendeur.value = markerId;
             bottlesList.value =
@@ -142,7 +146,7 @@ class HomeController extends GetxController {
 
   Future<void> goToTheCameraPosition(
       {required CameraPosition cameraPosition}) async {
-    final GoogleMapController controller = await mapController.future;
+    final GoogleMapController controller = await mapController.value.future;
     controller.animateCamera(CameraUpdate.newCameraPosition(cameraPosition));
   }
 
@@ -168,8 +172,7 @@ class HomeController extends GetxController {
     }
 
     for (var vendor in vendorsLists) {
-       timeTablelist = vendor.timeTables!.timeTables.length;
-      //  vendors = vendor;
+      timeTablelist = vendor.timeTables!.timeTables.length;
       customIcon(
         statut: false,
         width: 34,
@@ -182,8 +185,12 @@ class HomeController extends GetxController {
         name: vendor.name,
         number: vendor.phone,
         place: vendor.address,
-        openDate: getTimetables(timeTablelist: timeTablelist, vendor: vendor)!.split(':').first,
-        openHours: getTimetables(timeTablelist: timeTablelist, vendor: vendor)!.split(':').last,
+        openDate: getTimetables(timeTablelist: timeTablelist, vendor: vendor)!
+            .split(':')
+            .first,
+        openHours: getTimetables(timeTablelist: timeTablelist, vendor: vendor)!
+            .split(':')
+            .last,
       );
     }
   }

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/images.dart';
 import 'package:gazoo/app/core/design/theme.dart';
+import 'package:gazoo/app/core/utils/extensions.dart';
+import 'package:gazoo/app/core/widgets/snackbar.dart';
 import 'package:gazoo/app/core/widgets/textField.dart';
 import 'package:gazoo/app/core/utils/controller.dart';
 import 'package:get/get.dart';
@@ -15,7 +17,7 @@ class SignUpView extends GetView<SignUpController> {
 
     return Scaffold(
         body: Padding(
-      padding: const EdgeInsets.symmetric(vertical: 25.0, horizontal: 20.0),
+      padding: EdgeInsets.symmetric(vertical: 3.0.hp, horizontal: 6.0.wp),
       child: SizedBox(
         child: SingleChildScrollView(
           child: SizedBox(
@@ -28,9 +30,13 @@ class SignUpView extends GetView<SignUpController> {
                     SizedBox(
                         width: 120,
                         height: 133,
-                        child: Image.asset(AppImages.gazooLogo)),
+                        child: Image.asset(
+                          AppImages.gazooLogo,
+                          width: 100.0.sp,
+                        )),
                     Text("Inscription",
-                        style: AppTheme.ligthTheme.textTheme.headlineSmall),
+                        style: AppTheme.ligthTheme.textTheme.headlineSmall!
+                            .copyWith(fontSize: 18.0.sp)),
                   ],
                 ),
                 SizedBox(
@@ -64,13 +70,17 @@ class SignUpView extends GetView<SignUpController> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
+                          Snackbar.showSnackbar(
+                              title: "",
+                              message: "Compte en cours de création...");
                           globalAppControl.texFieldVerification(
                               control: globalAppControl);
                         },
                         style: AppTheme.ligthTheme.elevatedButtonTheme.style,
                         child: Text(
                           "Enregistrer",
-                          style: AppTheme.ligthTheme.textTheme.labelLarge,
+                          style: AppTheme.ligthTheme.textTheme.labelLarge!
+                              .copyWith(fontSize: 10.0.sp),
                         )),
                   ],
                 )

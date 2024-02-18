@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:gazoo/app/core/utils/extensions.dart';
 import 'package:gazoo/app/core/widgets/bottles_list.dart';
 import 'package:get/get.dart';
 
@@ -29,6 +30,7 @@ class BottomSheetGen extends StatelessWidget {
 
     return Stack(alignment: AlignmentDirectional.topCenter, children: [
       BottomSheet(
+        enableDrag: false,
         onClosing: () {},
         backgroundColor: Colors.transparent,
         builder: (_) => Column(
@@ -50,20 +52,19 @@ class BottomSheetGen extends StatelessWidget {
                 children: [
                   Text(
                     name,
-                    style: AppTheme.ligthTheme.textTheme.displaySmall,
+                    style: AppTheme.ligthTheme.textTheme.displaySmall!
+                        .copyWith(fontSize: 13.0.sp),
                   ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                    SizedBox(
-                      width: 120.0,
+                  Row(mainAxisAlignment: MainAxisAlignment.center, children: [
+                    Expanded(
                       child: Column(
                         children: [
-                          const Icon(Icons.phone_android_outlined,
-                              color: AppColors.brown),
+                          Icon(Icons.phone_android_outlined,
+                              size: 20.0.sp, color: AppColors.brown),
                           Text(
                             number,
-                            style: AppTheme.ligthTheme.textTheme.bodyMedium,
+                            style: AppTheme.ligthTheme.textTheme.bodyMedium!
+                                .copyWith(fontSize: 9.0.sp),
                           )
                         ],
                       ),
@@ -73,43 +74,46 @@ class BottomSheetGen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.center,
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      SizedBox(
-                        width: 120.0,
+                      Expanded(
                         child: Column(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.location_on_outlined,
+                              size: 20.0.sp,
                               color: AppColors.brown,
                             ),
                             Text(place,
-                                style: AppTheme.ligthTheme.textTheme.bodyMedium)
+                                style: AppTheme.ligthTheme.textTheme.bodyMedium!
+                                    .copyWith(fontSize: 9.0.sp))
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 120.0,
+                      Expanded(
                         child: Column(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.calendar_today,
+                              size: 20.0.sp,
                               color: AppColors.brown,
                             ),
                             Text(openDate,
-                                style: AppTheme.ligthTheme.textTheme.bodyMedium)
+                                style: AppTheme.ligthTheme.textTheme.bodyMedium!
+                                    .copyWith(fontSize: 9.0.sp))
                           ],
                         ),
                       ),
-                      SizedBox(
-                        width: 120.0,
+                      Expanded(
                         child: Column(
                           children: [
-                            const Icon(
+                            Icon(
                               Icons.timelapse_outlined,
+                              size: 20.0.sp,
                               color: AppColors.brown,
                             ),
                             Text(
                               openHours,
-                              style: AppTheme.ligthTheme.textTheme.bodyMedium,
+                              style: AppTheme.ligthTheme.textTheme.bodyMedium!
+                                  .copyWith(fontSize: 9.0.sp),
                             )
                           ],
                         ),

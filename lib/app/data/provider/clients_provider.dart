@@ -2,8 +2,6 @@ import 'dart:convert';
 import 'package:gazoo/app/data/models/clients.dart';
 import 'package:http/http.dart' as http;
 
-import '../../core/widgets/snackbar.dart';
-
 String urlBase = "http://gazoo.alwaysdata.net";
 
 class ClientsProvider {
@@ -29,8 +27,6 @@ class ClientsProvider {
       if (response.statusCode == 201) {
         return Clients.fromJson(jsonDecode(response.body));
       } else {
-        (Snackbar.showSnackbar(
-            title: "Erreur", message: "Ce Compte est déjà utilisé"));
         return null;
       }
     } 

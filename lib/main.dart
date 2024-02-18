@@ -18,7 +18,7 @@ void main() async{
   runApp(
     GetMaterialApp(  
       debugShowCheckedModeBanner: false,
-      title: "Application",
+      title: "Gazoo",
       initialRoute: initialRoute(),
       getPages: AppPages.routes,
       theme: ThemeData(colorScheme:AppTheme.ligthTheme.colorScheme),
