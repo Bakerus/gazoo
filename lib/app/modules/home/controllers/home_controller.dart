@@ -47,6 +47,22 @@ class HomeController extends GetxController {
     depotGazByBrandDisplaying("");
   }
 
+  @override
+  void onClose() {
+    stateCurrentLocation.value = false;
+    depotGazLocation.value = false;
+    depotGazLocationByBrand.value = false;
+    super.onClose();
+  }
+
+  @override
+  void onReady() {
+    print("object");
+    getPosition();
+    depotGazByBrandDisplaying("");
+    super.onReady();
+  }
+
   void customIcon(
       {required bool statut,
       required double width,
@@ -81,11 +97,10 @@ class HomeController extends GetxController {
                   openDate: openDate,
                   openHours: openHours,
                 ),
-                
                 backgroundColor: Colors.transparent,
                 isScrollControlled: true,
                 barrierColor: const Color.fromRGBO(0, 0, 0, 0.58));
-              
+
             bottlesList.clear();
             idVendeur.value = markerId;
             bottlesList.value =

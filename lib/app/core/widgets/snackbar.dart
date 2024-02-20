@@ -11,10 +11,21 @@ class Snackbar extends StatelessWidget {
     return Container();
   }
 
+ static List<BoxShadow> boxShadows = [
+  const BoxShadow(
+    color: AppColors.grey, 
+    offset: Offset(0, 2), 
+    blurRadius: 6, 
+    spreadRadius: 1, 
+  ),
+];
+
   static SnackbarController showSnackbar(
       {required String title, required String message}) {
     return Get.snackbar("...", "...",
-        borderColor: Colors.black45,
+        boxShadows: boxShadows,
+        borderWidth: 1.0,
+        duration: const Duration(seconds: 5),
         titleText: Text(
           title,
           style: const TextStyle(

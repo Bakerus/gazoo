@@ -22,6 +22,7 @@ class HomeView extends GetView<HomeController> {
     final controller = Get.put(HomeController());
 
     return Scaffold(
+      extendBody: true,
       body: SingleChildScrollView(
         child: Column(
           children: [
