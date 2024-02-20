@@ -47,22 +47,6 @@ class HomeController extends GetxController {
     depotGazByBrandDisplaying("");
   }
 
-  @override
-  void onClose() {
-    stateCurrentLocation.value = false;
-    depotGazLocation.value = false;
-    depotGazLocationByBrand.value = false;
-    super.onClose();
-  }
-
-  @override
-  void onReady() {
-    print("object");
-    getPosition();
-    depotGazByBrandDisplaying("");
-    super.onReady();
-  }
-
   void customIcon(
       {required bool statut,
       required double width,

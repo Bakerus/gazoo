@@ -25,6 +25,7 @@ class HomeView extends GetView<HomeController> {
       extendBody: true,
       body: SingleChildScrollView(
         child: Column(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Container(
               padding: EdgeInsets.symmetric(vertical: 5.0.hp),
