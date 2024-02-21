@@ -15,7 +15,6 @@ dependencies:
   flutter: 
     sdk: flutter
   google_maps_flutter: ^2.2.6
-  auto_size_text: ^3.0.0
   cached_network_image: ^3.3.1
   
 

@@ -45,21 +45,21 @@ class SignUpView extends GetView<SignUpController> {
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
                       TextFieldGen(
-                        labelText: "Nom(s)",
+                        labelText: "Nom(s) : BAKEHE",
                         textFieldController:
                             globalAppControl.firstNameController,
                       ),
                       TextFieldGen(
-                        labelText: "Prénom(s)",
+                        labelText: "Prénom(s) : WILLIAM STEVE",
                         textFieldController:
                             globalAppControl.secondNameController,
                       ),
                       TextFieldGen(
-                        labelText: "Adresse",
+                        labelText: "Adresse : Nkolnguet",
                         textFieldController: globalAppControl.addressController,
                       ),
                       TextFieldGen(
-                        labelText: "Téléphone",
+                        labelText: "Telephone : 656704510",
                         textFieldController: globalAppControl.numberController,
                         textInputType: TextInputType.number,
                       ),

@@ -64,7 +64,7 @@ class GlobalAppController extends GetxController {
         Get.off(const HomeView());
       } else {
         (Snackbar.showSnackbar(
-            title: "Erreur", message: "Ce Compte est déjà utilisé"));
+            title: "Erreur", message: "Compte déjà utilisé"));
       }
     } catch (e) {
       // print(e);
