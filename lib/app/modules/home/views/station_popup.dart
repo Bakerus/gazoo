@@ -78,8 +78,8 @@ class _StationPopupState extends State<StationPopup> {
                           ],
                         ),
                         SizedBox(
-                          width: 120,
-                          height: 22,
+                          width: 35.0.wp,
+                          height: 3.5.hp,
                           child: DropdownButtonFormField<String>(
                             value: selectedVille,
                             onChanged: (String? newValue) {
@@ -115,9 +115,9 @@ class _StationPopupState extends State<StationPopup> {
                                     child: Text(
                                   value,
                                   textAlign: TextAlign.center,
-                                  style: const TextStyle(
+                                  style: TextStyle(
                                     fontFamily: 'Poppins',
-                                    fontSize: 10.0,
+                                    fontSize: 8.0.sp,
                                     fontWeight: FontWeight.w300,
                                   ),
                                 )),

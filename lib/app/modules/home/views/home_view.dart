@@ -27,27 +27,24 @@ class HomeView extends GetView<HomeController> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Container(
-              padding: EdgeInsets.symmetric(vertical: 5.0.hp),
-              child: Row(
+            SizedBox(
+              height: 20.0.hp,
+              width: 100.0.wp,
+              child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
-                  Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: AppColors.brown,
-                        child: Text(
-                          "G",
-                          style: AppTheme.ligthTheme.textTheme.headlineMedium,
-                        ),
-                      ),
-                      Text(
-                        getstorage.read("name"),
-                        style: AppTheme.ligthTheme.textTheme.displaySmall!
-                            .copyWith(fontSize: 13.0.sp),
-                      ),
-                    ],
+                  CircleAvatar(
+                    backgroundColor: AppColors.brown,
+                    child: Text(
+                      "G",
+                      style: AppTheme.ligthTheme.textTheme.headlineMedium,
+                    ),
+                  ),
+                  Text(
+                    getstorage.read("name"),
+                    style: AppTheme.ligthTheme.textTheme.displaySmall!
+                        .copyWith(fontSize: 13.0.sp),
                   ),
                 ],
               ),
@@ -57,7 +54,7 @@ class HomeView extends GetView<HomeController> {
                 alignment: Alignment.bottomCenter,
                 children: [
                   SizedBox(
-                    height: 81.7.hp,
+                    height: 80.0.hp,
                     width: 100.0.wp,
                     child: ClipRRect(
                       borderRadius: const BorderRadius.only(

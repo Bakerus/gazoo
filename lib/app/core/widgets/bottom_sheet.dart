@@ -38,7 +38,7 @@ class BottomSheetGen extends StatelessWidget {
           children: [
             const SizedBox(),
             Container(
-              width: MediaQuery.of(_).size.width,
+              width: 100.0.wp,
               height: MediaQuery.of(_).size.height * 0.8,
               decoration: const BoxDecoration(
                 color: Colors.white,
@@ -138,7 +138,7 @@ class BottomSheetGen extends StatelessWidget {
         ),
       ),
       Positioned(
-        bottom: MediaQuery.of(context).size.height * 0.76,
+        bottom: 76.0.hp,
         child: Container(
           decoration: const BoxDecoration(
               color: Colors.white,
@@ -150,12 +150,11 @@ class BottomSheetGen extends StatelessWidget {
                     spreadRadius: 2)
               ]),
           child: CircleAvatar(
-            radius: 28.0,
+            radius: 30.0,
             backgroundColor: Colors.white,
             child: Image.asset(
               AppImages.depotGaz,
-              width: 34,
-              height: 34,
+              width: 28.0.sp,
             ),
           ),
         ),
