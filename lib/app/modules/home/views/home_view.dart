@@ -37,12 +37,12 @@ class HomeView extends GetView<HomeController> {
                   CircleAvatar(
                     backgroundColor: AppColors.brown,
                     child: Text(
-                      "G",
-                      style: AppTheme.ligthTheme.textTheme.headlineMedium,
+                      getstorage.read("name").toString()[0].toUpperCase(),
+                      style: AppTheme.ligthTheme.textTheme.headlineMedium!.copyWith(fontSize: 20.0.sp),
                     ),
                   ),
                   Text(
-                    getstorage.read("name"),
+                    getstorage.read("name").toString().toUpperCase(),
                     style: AppTheme.ligthTheme.textTheme.displaySmall!
                         .copyWith(fontSize: 13.0.sp),
                   ),

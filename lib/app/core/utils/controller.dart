@@ -14,6 +14,7 @@ class GlobalAppController extends GetxController {
   TextEditingController addressController = TextEditingController();
   ClientsProvider clientsProvider = ClientsProvider();
   GetStorage getStorage = GetStorage();
+  final iscreated = true.obs;
 
   @override
   void onClose() {

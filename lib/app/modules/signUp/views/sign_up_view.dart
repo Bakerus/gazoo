@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
+import 'package:gazoo/app/core/design/colors.dart';
 import 'package:gazoo/app/core/design/images.dart';
 import 'package:gazoo/app/core/design/theme.dart';
 import 'package:gazoo/app/core/utils/extensions.dart';
-import 'package:gazoo/app/core/widgets/snackbar.dart';
 import 'package:gazoo/app/core/widgets/textField.dart';
 import 'package:gazoo/app/core/utils/controller.dart';
 import 'package:get/get.dart';
@@ -12,11 +13,11 @@ class SignUpView extends GetView<SignUpController> {
   const SignUpView({super.key});
   @override
   Widget build(BuildContext context) {
-    // GlobalAppController control = GlobalAppController();
+
     final GlobalAppController globalAppControl = Get.put(GlobalAppController());
 
     return Scaffold(
-        body: Padding(
+      body: Padding(
       padding: EdgeInsets.symmetric(vertical: 3.0.hp, horizontal: 6.0.wp),
       child: SizedBox(
         child: SingleChildScrollView(
@@ -27,13 +28,10 @@ class SignUpView extends GetView<SignUpController> {
               children: [
                 Column(
                   children: [
-                    SizedBox(
-                        width: 120,
-                        height: 133,
-                        child: Image.asset(
-                          AppImages.gazooLogo,
-                          width: 100.0.sp,
-                        )),
+                    Image.asset(
+                      AppImages.gazooLogo,
+                      width: 100.0.sp,
+                    ),
                     Text("Inscription",
                         style: AppTheme.ligthTheme.textTheme.headlineSmall!
                             .copyWith(fontSize: 18.0.sp)),
@@ -70,9 +68,44 @@ class SignUpView extends GetView<SignUpController> {
                   children: [
                     ElevatedButton(
                         onPressed: () {
-                          Snackbar.showSnackbar(
-                              title: "",
-                              message: "Compte en cours de création...");
+                          showDialog(
+                            context: context,
+                            barrierDismissible: false,
+                            builder: (context) {
+                              return AlertDialog(
+                                content: Row(
+                                  children: [
+                                    Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          SizedBox(
+                                            width: 13.0.wp,
+                                            height: 8.0.hp,
+                                            child:
+                                                const CircularProgressIndicator(
+                                              strokeWidth: 3,
+                                              color: AppColors.brown,
+                                            ),
+                                          ),
+                                          Image.asset(
+                                            AppImages.gazooLogo,
+                                            width: 50.0.sp,
+                                            fit: BoxFit.cover,
+                                          )
+                                        ]),
+                                    Text("Creation en cours...",
+                                        style: TextStyle(
+                                          fontFamily: 'Poppins',
+                                          fontWeight: FontWeight.w400,
+                                          fontSize: 11.0.sp,
+                                          color: Colors.grey,
+                                        )),
+                                  ],
+                                ),
+                              );
+                            },
+                          );
+
                           globalAppControl.texFieldVerification(
                               control: globalAppControl);
                         },
