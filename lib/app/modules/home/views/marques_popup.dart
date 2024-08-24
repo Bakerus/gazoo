@@ -140,7 +140,7 @@ class _MarquesPopupState extends State<MarquesPopup> {
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
-                          fontSize: 11.0.sp,
+                          fontSize: 13.0.sp,
                           color: Colors.white,
                         ),
                       ),

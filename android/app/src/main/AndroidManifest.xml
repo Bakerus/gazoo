@@ -3,6 +3,8 @@
    <uses-permission android:name="android.permission.INTERNET"/>
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE"/>
    <application
         android:label="Gazoo"
         android:name="${applicationName}"
@@ -37,4 +39,16 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDVyNkPuSDViOskhULlHztTvVXrkWNpRz0"/>
     </application>
+    
+
+    <!-- Provide required visibility configuration for API level 30 and above -->
+<queries>
+  <!-- If your app checks for call support -->
+  <intent>
+    <action android:name="android.intent.action.VIEW" />
+    <data android:scheme="tel" />
+  </intent>
+  
+</queries>
+
 </manifest>

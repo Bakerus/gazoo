@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/utils/extensions.dart';
 import 'package:gazoo/app/core/widgets/bottles_list.dart';
+import 'package:url_launcher/url_launcher.dart';
 import 'package:get/get.dart';
 
 import '../../modules/home/controllers/home_controller.dart';
@@ -57,16 +58,25 @@ class BottomSheetGen extends StatelessWidget {
                   ),
                   Row(mainAxisAlignment: MainAxisAlignment.center, children: [
                     Expanded(
-                      child: Column(
-                        children: [
-                          Icon(Icons.phone_android_outlined,
-                              size: 20.0.sp, color: AppColors.brown),
-                          Text(
-                            number,
-                            style: AppTheme.ligthTheme.textTheme.bodyMedium!
-                                .copyWith(fontSize: 9.0.sp),
-                          )
-                        ],
+                      child: InkWell(
+                        onTap: () async {
+                              final Uri url = Uri(
+                                scheme: 'tel',
+                                path: number,
+                              );
+                              await launchUrl(url);
+                            },
+                        child: Column(
+                          children: [
+                            Icon(Icons.phone_android_outlined,
+                                size: 20.0.sp, color: AppColors.brown),
+                            Text(
+                              number,
+                              style: AppTheme.ligthTheme.textTheme.bodyMedium!
+                                  .copyWith(fontSize: 9.0.sp),
+                            )
+                          ],
+                        ),
                       ),
                     ),
                   ]),

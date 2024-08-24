@@ -11,8 +11,6 @@ class AppTheme {
       onSecondary: Colors.black,
       error: Colors.red,
       onError: Colors.white,
-      background: Colors.white,
-      onBackground: Colors.black,
       surface: Colors.white,
       onSurface: Colors.black,
     ),
@@ -76,12 +74,12 @@ class AppTheme {
 
     elevatedButtonTheme: ElevatedButtonThemeData(
       style: ButtonStyle(
-          padding: MaterialStateProperty.all<EdgeInsetsGeometry>(
-              const EdgeInsets.symmetric(vertical: 15, horizontal: 80)),
-          backgroundColor: MaterialStateProperty.all<Color>(AppColors.brown),
+          padding: WidgetStateProperty.all<EdgeInsetsGeometry>(
+              const EdgeInsets.symmetric(vertical: 8, horizontal: 25)),
+          backgroundColor: WidgetStateProperty.all<Color>(AppColors.brown),
           foregroundColor:
-              MaterialStateProperty.all<Color>(const Color(0xFFFFFFFF)),
-          shape: MaterialStateProperty.all<OutlinedBorder>(
+              WidgetStateProperty.all<Color>(const Color(0xFFFFFFFF)),
+          shape: WidgetStateProperty.all<OutlinedBorder>(
             RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(25.0),
             ),

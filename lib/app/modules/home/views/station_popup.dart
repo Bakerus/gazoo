@@ -243,11 +243,11 @@ class _StationPopupState extends State<StationPopup> {
                     ),
                   ),
                   Material(
-                    elevation: 3.0,
+                    elevation: 2.0,
                     borderRadius: BorderRadius.circular(10.0),
                     child: Container(
                       width: double.infinity,
-                      height: 5.0.hp,
+                      height: 3.0.hp,
                       decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(8),
@@ -298,7 +298,7 @@ class _StationPopupState extends State<StationPopup> {
                         style: TextStyle(
                           fontFamily: 'Poppins',
                           fontWeight: FontWeight.bold,
-                          fontSize: 11.0.sp,
+                          fontSize: 13.0.sp,
                           color: Colors.white,
                         ),
                       ),

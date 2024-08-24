@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:gazoo/app/core/design/colors.dart';
 import 'package:gazoo/app/core/design/images.dart';
 import 'package:gazoo/app/core/design/theme.dart';

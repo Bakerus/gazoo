@@ -22,7 +22,7 @@ void main() async {
       title: "Gazoo",
       initialRoute: initialRoute(),
       getPages: AppPages.routes,
-      theme: ThemeData(colorScheme: AppTheme.ligthTheme.colorScheme),
+      theme: AppTheme.ligthTheme,
     ),
   );
 }
