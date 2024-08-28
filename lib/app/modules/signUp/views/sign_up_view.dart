@@ -12,11 +12,10 @@ class SignUpView extends GetView<SignUpController> {
   const SignUpView({super.key});
   @override
   Widget build(BuildContext context) {
-
     final GlobalAppController globalAppControl = Get.put(GlobalAppController());
 
     return Scaffold(
-      body: Padding(
+        body: Padding(
       padding: EdgeInsets.symmetric(vertical: 3.0.hp, horizontal: 6.0.wp),
       child: SizedBox(
         child: SingleChildScrollView(
@@ -65,55 +64,58 @@ class SignUpView extends GetView<SignUpController> {
                 ),
                 Column(
                   children: [
-                    ElevatedButton(
-                        onPressed: () {
-                          showDialog(
-                            context: context,
-                            barrierDismissible: false,
-                            builder: (context) {
-                              return AlertDialog(
-                                content: Row(
-                                  children: [
-                                    Stack(
-                                        alignment: Alignment.center,
-                                        children: [
-                                          SizedBox(
-                                            width: 13.0.wp,
-                                            height: 8.0.hp,
-                                            child:
-                                                const CircularProgressIndicator(
-                                              strokeWidth: 3,
-                                              color: AppColors.brown,
+                    SizedBox(
+                      height: 7.0.hp,
+                      child: ElevatedButton(
+                          onPressed: () {
+                            showDialog(
+                              context: context,
+                              barrierDismissible: false,
+                              builder: (context) {
+                                return AlertDialog(
+                                  content: Row(
+                                    children: [
+                                      Stack(
+                                          alignment: Alignment.center,
+                                          children: [
+                                            SizedBox(
+                                              width: 13.0.wp,
+                                              height: 8.0.hp,
+                                              child:
+                                                  const CircularProgressIndicator(
+                                                strokeWidth: 3,
+                                                color: AppColors.brown,
+                                              ),
                                             ),
-                                          ),
-                                          Image.asset(
-                                            AppImages.gazooLogo,
-                                            width: 50.0.sp,
-                                            fit: BoxFit.cover,
-                                          )
-                                        ]),
-                                    Text("Creation en cours...",
-                                        style: TextStyle(
-                                          fontFamily: 'Poppins',
-                                          fontWeight: FontWeight.w400,
-                                          fontSize: 11.0.sp,
-                                          color: Colors.grey,
-                                        )),
-                                  ],
-                                ),
-                              );
-                            },
-                          );
+                                            Image.asset(
+                                              AppImages.gazooLogo,
+                                              width: 50.0.sp,
+                                              fit: BoxFit.cover,
+                                            )
+                                          ]),
+                                      Text("Creation en cours...",
+                                          style: TextStyle(
+                                            fontFamily: 'Poppins',
+                                            fontWeight: FontWeight.w400,
+                                            fontSize: 11.0.sp,
+                                            color: Colors.grey,
+                                          )),
+                                    ],
+                                  ),
+                                );
+                              },
+                            );
 
-                          globalAppControl.texFieldVerification(
-                              control: globalAppControl);
-                        },
-                        style: AppTheme.ligthTheme.elevatedButtonTheme.style,
-                        child: Text(
-                          "Enregistrer",
-                          style: AppTheme.ligthTheme.textTheme.labelLarge!
-                              .copyWith(fontSize: 10.0.sp),
-                        )),
+                            globalAppControl.texFieldVerification(
+                                control: globalAppControl);
+                          },
+                          style: AppTheme.ligthTheme.elevatedButtonTheme.style,
+                          child: Text(
+                            "Enregistrer",
+                            style: AppTheme.ligthTheme.textTheme.labelLarge!
+                                .copyWith(fontSize: 10.0.sp),
+                          )),
+                    ),
                   ],
                 )
               ],

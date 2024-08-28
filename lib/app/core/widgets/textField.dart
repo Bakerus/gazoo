@@ -3,18 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/colors.dart';
 import '../design/theme.dart';
 
-
 class TextFieldGen extends StatelessWidget {
   final String labelText;
   final TextEditingController? textFieldController;
   final TextInputType? textInputType;
 
-  const TextFieldGen({
-    super.key,
-    required this.labelText,
-    this.textFieldController,
-    this.textInputType
-  });
+  const TextFieldGen(
+      {super.key,
+      required this.labelText,
+      this.textFieldController,
+      this.textInputType});
 
   @override
   Widget build(BuildContext context) {

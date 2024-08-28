@@ -19,7 +19,7 @@ class HomeView extends GetView<HomeController> {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
     GetStorage getstorage = GetStorage();
-    final controller = Get.put(HomeController());
+    final controller = Get.put(HomeController(), permanent: true);
 
     return Scaffold(
       extendBody: true,
@@ -36,9 +36,13 @@ class HomeView extends GetView<HomeController> {
                 CircleAvatar(
                   backgroundColor: AppColors.brown,
                   child: Text(
-                    getstorage.read("name").toString()[0].toUpperCase(),
-                    style: AppTheme.ligthTheme.textTheme.headlineMedium!
-                        .copyWith(fontSize: 20.0.sp),
+                    getstorage.read("name")?.toString()[0].toUpperCase() != null
+                        ? "G"
+                        : "G",
+                    style:
+                        AppTheme.ligthTheme.textTheme.headlineMedium!.copyWith(
+                      fontSize: 20.0.sp,
+                    ),
                   ),
                 ),
                 Text(

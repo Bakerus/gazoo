@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:gazoo/app/core/widgets/bottom_sheet.dart';
 import 'package:gazoo/app/data/models/bottle_lot.dart';
 import 'package:gazoo/app/data/models/vendors.dart';
@@ -16,7 +17,7 @@ import '../../../data/models/brand.dart';
 //  depotGazByBrandDisplaying(String selectedBrand): Cette fonction permet d'afficher tous les vendeurs ou les vendeurs possedants une marque de gaz X
 // goToTheCameraPosition(CameraPosition cameraPosition) : Cette fonction permet de deplcer la camera au niveau de la position de l'utilisateur
 // removeMarkerById(MarkerId markerId) : Cette fonction permet de retirer les markers des vendeurs sur la carte
-// fetchBrands() : Cette fonction permet de recuperer la liste des marques de gaz vendues
+// fetchBrands() : Cette fonction permet de recuperer la liste des marques de gaz venduesP
 // getTimetables({required int timeTablelist, required Vendors vendor}) : Cette fonction permet de remplacer le mot "tous les jour" par 7j/7 sur le BottomSheet
 
 class HomeController extends GetxController {
@@ -100,47 +101,54 @@ class HomeController extends GetxController {
     bool serviceEnabled;
     PermissionStatus permissionGranted;
 
-    serviceEnabled = await location.serviceEnabled();
-    if (!serviceEnabled) {
-      serviceEnabled = await location.requestService();
+    try {
+      serviceEnabled = await location.serviceEnabled();
       if (!serviceEnabled) {
-        return;
+        serviceEnabled = await location.requestService();
+        if (!serviceEnabled) {
+          return;
+        }
       }
-    }
-    permissionGranted = await location.hasPermission();
-    if (permissionGranted == PermissionStatus.denied) {
-      permissionGranted = await location.requestPermission();
-      if (permissionGranted != PermissionStatus.granted) {
-        return;
+
+      permissionGranted = await location.hasPermission();
+      if (permissionGranted == PermissionStatus.denied) {
+        permissionGranted = await location.requestPermission();
+        if (permissionGranted != PermissionStatus.granted) {
+          return;
+        }
       }
+
+      location.getLocation().then(
+        (currentLocation) {
+          stateCurrentLocation.value = true;
+          latitude.value = currentLocation.latitude!;
+          longitude.value = currentLocation.longitude!;
+
+          cameraPosition.value = CameraPosition(
+            target: LatLng(latitude.value, longitude.value),
+            zoom: 15.5,
+          );
+
+          customIcon(
+              statut: true,
+              width: 20,
+              height: 20,
+              assetName: "assets/images/userPosition.png",
+              marker: globalMarker,
+              markerId: 0,
+              latitude: currentLocation.latitude!,
+              longitude: currentLocation.longitude!,
+              name: '',
+              number: '',
+              place: '',
+              openDate: '',
+              openHours: '');
+        },
+      );
+    } on PlatformException catch (e) {
+      print("error: $e");
+      getPosition();
     }
-    location.getLocation().then(
-      (currentLocation) {
-        stateCurrentLocation.value = true;
-        latitude.value = currentLocation.latitude!;
-        longitude.value = currentLocation.longitude!;
-
-        cameraPosition.value = CameraPosition(
-          target: LatLng(latitude.value, longitude.value),
-          zoom: 15.5,
-        );
-
-        customIcon(
-            statut: true,
-            width: 20,
-            height: 20,
-            assetName: "assets/images/userPosition.png",
-            marker: globalMarker,
-            markerId: 0,
-            latitude: currentLocation.latitude!,
-            longitude: currentLocation.longitude!,
-            name: '',
-            number: '',
-            place: '',
-            openDate: '',
-            openHours: '');
-      },
-    );
   }
 
   Future<void> goToTheCameraPosition(

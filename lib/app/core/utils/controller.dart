@@ -62,7 +62,7 @@ class GlobalAppController extends GetxController {
 
       if (clients != null) {
         getStorage.write("name", firstNameController.text);
-        Get.off(const HomeView());
+        Get.offAll(const HomeView());
       } else {
         (Snackbar.showSnackbar(
             title: "Erreur", message: "Compte déjà utilisé"));

@@ -78,7 +78,6 @@ class BottlesList extends StatelessWidget {
         ),
         elevation: 3.0,
         child: Column(
-          mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             ClipRRect(
@@ -103,10 +102,10 @@ class BottlesList extends StatelessWidget {
                         ),
                     fit: BoxFit.cover,
                     width: 60.0.wp,
-                    height: 22.0.hp)),
+                    height: 19.0.hp)),
             Expanded(
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                 children: [
                   Text(
                     bottlesList[index].brand.brandName,

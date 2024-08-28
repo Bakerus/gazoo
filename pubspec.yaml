@@ -1,37 +1,33 @@
 name: gazoo
-version: 1.0.0+1
+version: 1.0.0+3
 publish_to: none
 description: A new Flutter project.
-environment: 
-  sdk: '>=3.2.5 <4.0.0'
+environment:
+  sdk: ">=3.2.5 <4.0.0"
 
-
-dependencies: 
+dependencies:
   cupertino_icons: ^1.0.2
   get: ^4.6.6
   location: ^5.0.3
   http: ^1.2.0
   get_storage: ^2.1.1
-  flutter: 
+  flutter:
     sdk: flutter
   google_maps_flutter: ^2.2.6
   cached_network_image: ^3.3.1
   url_launcher: ^6.3.0
-  
 
-dev_dependencies: 
+dev_dependencies:
   flutter_lints: ^3.0.1
-  flutter_test: 
+  flutter_test:
     sdk: flutter
   flutter_native_splash: ^2.2.18
 
 flutter_native_splash:
-  image:  assets/images/gazoo_logo.png
-  background_image:  "assets/images/gazoo_background.png"
-  
+  image: assets/images/gazoo_logo.png
+  background_image: "assets/images/gazoo_background.png"
 
-
-flutter: 
+flutter:
   uses-material-design: true
   assets:
     - assets/images/gazoo_logo.png
@@ -42,7 +38,8 @@ flutter:
     - assets/images/depotGazMap.png
     - assets/images/whatsapp.png
     - assets/images/prix.png
-    
+    - shorebird.yaml
+
   fonts:
     - family: Poppins
       fonts:
@@ -54,4 +51,3 @@ flutter:
           weight: 400
         - asset: assets/fonts/Poppins-Light.ttf
           weight: 300
-
