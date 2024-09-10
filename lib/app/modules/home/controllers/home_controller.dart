@@ -1,14 +1,16 @@
 import 'dart:async';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:gazoo/app/core/widgets/bottom_sheet.dart';
 import 'package:gazoo/app/data/models/bottle_lot.dart';
 import 'package:gazoo/app/data/models/vendors.dart';
 import 'package:gazoo/app/data/provider/vendors_provider.dart';
 import 'package:get/get.dart';
+import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
-import 'package:location/location.dart';
+// import 'package:location/location.dart';
+import 'package:geolocator/geolocator.dart';
 import '../../../core/design/images.dart';
+import '../../../core/widgets/snackbar.dart';
 import '../../../data/provider/brand_provider.dart';
 import '../../../data/models/brand.dart';
 
@@ -22,9 +24,8 @@ import '../../../data/models/brand.dart';
 
 class HomeController extends GetxController {
   final globalMarker = <Marker>{}.obs;
-  final cameraPosition = const CameraPosition(
-          target: LatLng(37.42796133580664, -122.085749655962), zoom: 14.4746)
-      .obs;
+  final cameraPosition =
+      const CameraPosition(target: LatLng(37.4, -122.0), zoom: 15.0).obs;
   final stateCurrentLocation = false.obs;
   final depotGazLocation = false.obs;
   final depotGazLocationByBrand = false.obs;
@@ -33,19 +34,36 @@ class HomeController extends GetxController {
   final longitude = 0.0.obs;
   final bottlesList = RxList<BottleLot>();
   final mapController = Completer<GoogleMapController>().obs;
-  LocationData? locationData;
+
   VendorsProvider vendorsProvider = VendorsProvider();
   List<Vendors> vendorsLists = <Vendors>[].obs;
   var brandList = <Brand>[].obs;
   var isLoading = true.obs;
   var selectedBrand = "".obs;
   int timeTablelist = 0;
+  final userName = ''.obs;
 
   @override
   void onInit() {
     super.onInit();
-    getPosition();
     depotGazByBrandDisplaying("");
+  }
+
+  @override
+  void onReady() {
+    super.onInit();
+    getPosition();
+    getUserName();
+  }
+
+  void getUserName() {
+    try {
+      final storage = GetStorage();
+      userName.value = storage.read("name").toString().toUpperCase();
+      update(); // Notifie le GetBuilder de mettre à jour l'UI
+    } catch (e) {
+      Snackbar.showSnackbar(title: "Erreur", message: "user: $e");
+    }
   }
 
   void customIcon(
@@ -97,57 +115,63 @@ class HomeController extends GetxController {
   }
 
   Future<void> getPosition() async {
-    Location location = Location();
     bool serviceEnabled;
-    PermissionStatus permissionGranted;
+    LocationPermission permission;
 
     try {
-      serviceEnabled = await location.serviceEnabled();
+      // Vérifie si le service de localisation est activé
+      serviceEnabled = await Geolocator.isLocationServiceEnabled();
       if (!serviceEnabled) {
-        serviceEnabled = await location.requestService();
-        if (!serviceEnabled) {
+        // Si le service de localisation n'est pas activé, affiche une erreur ou une action à l'utilisateur
+        return;
+      }
+
+      // Vérifie les permissions de localisation
+      permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.denied) {
+        permission = await Geolocator.requestPermission();
+        if (permission == LocationPermission.deniedForever) {
+          // Les permissions sont refusées de manière permanente
           return;
         }
       }
 
-      permissionGranted = await location.hasPermission();
-      if (permissionGranted == PermissionStatus.denied) {
-        permissionGranted = await location.requestPermission();
-        if (permissionGranted != PermissionStatus.granted) {
-          return;
-        }
-      }
-
-      location.getLocation().then(
-        (currentLocation) {
-          stateCurrentLocation.value = true;
-          latitude.value = currentLocation.latitude!;
-          longitude.value = currentLocation.longitude!;
-
-          cameraPosition.value = CameraPosition(
-            target: LatLng(latitude.value, longitude.value),
-            zoom: 15.5,
-          );
-
-          customIcon(
-              statut: true,
-              width: 20,
-              height: 20,
-              assetName: "assets/images/userPosition.png",
-              marker: globalMarker,
-              markerId: 0,
-              latitude: currentLocation.latitude!,
-              longitude: currentLocation.longitude!,
-              name: '',
-              number: '',
-              place: '',
-              openDate: '',
-              openHours: '');
-        },
+      // Si la permission est accordée, récupère la position de l'utilisateur
+      Position currentPosition = await Geolocator.getCurrentPosition(
+        desiredAccuracy: LocationAccuracy.high,
       );
-    } on PlatformException catch (e) {
-      print("error: $e");
-      getPosition();
+
+      // Met à jour les variables d'état avec la position de l'utilisateur
+      stateCurrentLocation.value = true;
+      latitude.value = currentPosition.latitude;
+      longitude.value = currentPosition.longitude;
+
+      // Définit la position de la caméra sur la carte
+      cameraPosition.value = CameraPosition(
+        target: LatLng(latitude.value, longitude.value),
+        zoom: 15.5,
+      );
+
+      // Appelle la fonction pour afficher l'icône de l'utilisateur sur la carte
+      customIcon(
+        statut: true,
+        width: 20,
+        height: 20,
+        assetName: "assets/images/userPosition.png",
+        marker: globalMarker,
+        markerId: 0,
+        latitude: currentPosition.latitude,
+        longitude: currentPosition.longitude,
+        name: '',
+        number: '',
+        place: '',
+        openDate: '',
+        openHours: '',
+      );
+    } catch (e) {
+      print('Erreur lors de la récupération de la position : $e');
+      Snackbar.showSnackbar(title: "Erreur", message: "$e");
+      return;
     }
   }
 

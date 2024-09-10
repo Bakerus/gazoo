@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gazoo/app/core/design/images.dart';
 import 'package:gazoo/app/core/design/theme.dart';
 import 'package:gazoo/app/core/utils/extensions.dart';
-import 'package:get_storage/get_storage.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:get/get.dart';
 import '../../../core/design/colors.dart';
@@ -18,7 +17,7 @@ class HomeView extends GetView<HomeController> {
   Widget build(BuildContext context) {
     SystemChrome.setPreferredOrientations(
         [DeviceOrientation.portraitUp, DeviceOrientation.portraitDown]);
-    GetStorage getstorage = GetStorage();
+
     final controller = Get.put(HomeController(), permanent: true);
 
     return Scaffold(
@@ -26,31 +25,31 @@ class HomeView extends GetView<HomeController> {
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          SizedBox(
-            height: 20.0.hp,
-            width: 100.0.wp,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              crossAxisAlignment: CrossAxisAlignment.center,
-              children: [
-                CircleAvatar(
-                  backgroundColor: AppColors.brown,
-                  child: Text(
-                    getstorage.read("name")?.toString()[0].toUpperCase() != null
-                        ? "G"
-                        : "G",
-                    style:
-                        AppTheme.ligthTheme.textTheme.headlineMedium!.copyWith(
-                      fontSize: 20.0.sp,
+          GetBuilder<HomeController>(
+            builder: (controller) => SizedBox(
+              height: 20.0.hp,
+              width: 100.0.wp,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  CircleAvatar(
+                    backgroundColor: AppColors.brown,
+                    child: Text(
+                      "G",
+                      style: AppTheme.ligthTheme.textTheme.headlineMedium!
+                          .copyWith(fontSize: 20.0.sp),
                     ),
                   ),
-                ),
-                Text(
-                  getstorage.read("name").toString().toUpperCase(),
-                  style: AppTheme.ligthTheme.textTheme.displaySmall!
-                      .copyWith(fontSize: 13.0.sp),
-                ),
-              ],
+                  Text(
+                    controller.userName.isEmpty
+                        ? "Chargement..."
+                        : controller.userName.value,
+                    style: AppTheme.ligthTheme.textTheme.displaySmall!
+                        .copyWith(fontSize: 13.0.sp),
+                  ),
+                ],
+              ),
             ),
           ),
           Obx(
@@ -65,9 +64,10 @@ class HomeView extends GetView<HomeController> {
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
                     ),
-                    child: (((controller.stateCurrentLocation.value == true) &&
-                                (controller.depotGazLocation.value == true)) ||
-                            (controller.depotGazLocationByBrand.value == true))
+                    child: ((controller.stateCurrentLocation.value == true) &&
+                            ((controller.depotGazLocation.value == true) ||
+                                (controller.depotGazLocationByBrand.value ==
+                                    true)))
                         ? GoogleMap(
                             zoomControlsEnabled: false,
                             mapType: MapType.normal,
@@ -182,7 +182,9 @@ class HomeView extends GetView<HomeController> {
                                     "Depots",
                                     style: AppTheme
                                         .ligthTheme.textTheme.titleSmall!
-                                        .copyWith(fontSize: 10.0.sp),
+                                        .copyWith(
+                                      fontSize: 10.0.sp,
+                                    ),
                                   )
                                 ],
                               ),

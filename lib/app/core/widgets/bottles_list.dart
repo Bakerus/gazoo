@@ -117,10 +117,10 @@ class BottlesList extends StatelessWidget {
                   Image.asset(
                     AppImages.prix,
                     fit: BoxFit.cover,
-                    width: 10.0.wp,
+                    width: 11.0.wp,
                   ),
                   Padding(
-                    padding: EdgeInsets.only(bottom: 1.0.hp),
+                    padding: EdgeInsets.only(bottom: 1.5.hp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -185,7 +185,7 @@ class BottlesList extends StatelessWidget {
                         ),
                     fit: BoxFit.cover,
                     width: 60.0.wp,
-                    height: 22.0.hp)),
+                    height: 19.0.hp)),
             Expanded(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -200,11 +200,11 @@ class BottlesList extends StatelessWidget {
                   Image.asset(
                     AppImages.prix,
                     fit: BoxFit.cover,
-                    width: 10.0.wp,
+                    width: 11.0.wp,
                   ),
                   Container(
                     width: 60.0.wp,
-                    padding: EdgeInsets.only(bottom: 1.0.hp),
+                    padding: EdgeInsets.only(bottom: 1.5.hp),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: [
@@ -226,7 +226,7 @@ class BottlesList extends StatelessWidget {
                           ),
                         ),
                         SizedBox(
-                          height: 5.0.hp,
+                          height: 4.0.hp,
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.spaceAround,
                             children: [
